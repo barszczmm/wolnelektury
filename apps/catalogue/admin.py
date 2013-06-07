@@ -32,6 +32,8 @@ class BookAdmin(TaggableModelAdmin):
     search_fields = ('title',)
     ordering = ('title',)
 
+    prepopulated_fields = {'slug': ('title',), 'common_slug': ('title',),}
+
     inlines = [MediaInline]
 
     def change_view(self, request, object_id, extra_context=None):
