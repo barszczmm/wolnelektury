@@ -27,6 +27,9 @@ thumbs.db
 .pydevproject
 .tmp_*
 
+# IntelliJ IDEA
+.idea
+
 # Tags file
 TAGS
 
