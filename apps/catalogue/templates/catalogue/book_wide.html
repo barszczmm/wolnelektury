@@ -46,7 +46,9 @@
       {% if extra_info.source_url %}
       <li><a href="{{ extra_info.source_url }}">{% trans "Source" %}</a> {% trans "of the book" %}</li>
       {% endif %}
+      {% if book.xml_file %}
       <li><a href="{{ book.xml_file.url }}">{% trans "Source XML file" %}</a></li>
+      {% endif %}
       {% if extra_info.about and not hide_about %}
       <li>{% trans "Book on" %} <a href="{{ extra_info.about }}">{% trans "Editor's Platform" %}</a></li>
       {% endif %}
@@ -56,7 +58,6 @@
       {% if book.wiki_link %}
       <li><a href="{{ book.wiki_link }}">{% trans "Book description on Wikipedia" %}</a></li>
       {% endif %}
-      <li><a href="{% url 'poem_from_book' book.slug %}">{% trans "Mix this book" %}</a></li>
     </ul>
   </div>
   <div class="other-download">
@@ -65,7 +66,7 @@
       <li>
 	{% if related.media.mp3 or related.media.ogg or related.media.daisy %}
         {% trans "Download all audiobooks for this book" %}:
-	    {% download_audio book %}. 
+	    {% download_audio book %}.
 	{% endif %}
       </li>
       {% custom_pdf_link_li book %}

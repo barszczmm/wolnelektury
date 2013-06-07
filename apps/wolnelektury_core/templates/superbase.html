@@ -1,215 +1,140 @@
 <!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE }}" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
-	{% load cache compressed i18n %}
-	{% load static from staticfiles %}
+    {% load cache compressed i18n %}
+    {% load static from staticfiles %}
     {% load catalogue_tags reporting_stats sponsor_tags %}
     <head>
         <meta charset="utf-8">
-        <meta name="application-name" content="Wolne Lektury" />
-        <meta property="og:site_name" content="Wolne Lektury" />
+        <meta name="application-name" content="Biblioteka Otwartej Nauki" />
+        <meta property="og:site_name" content="Biblioteka Otwartej Nauki" />
         <meta property="og:title" content="{% block ogtitle %}{% endblock %}" />
         <meta property="og:type" content="{% block ogtype %}website{% endblock %}" />
-        <meta property="og:image" content="{% block ogimage %}{{ FULL_STATIC_URL }}img/wiatrak.png{% endblock %}" />
-        <meta name="description" 
+        <meta property="og:image" content="{% block ogimage %}{{ FULL_STATIC_URL }}img/BON_logo.png{% endblock %}" />
+        <meta name="description"
             content="{% block metadescription %}Darmowe opracowane, pełne teksty lektur, e-booki, audiobooki i pliki DAISY na wolnej licencji.{% endblock %}" />
         {% block ogextra %}{% endblock %}
-        
 
-        <title>{% block title %}{% trans "Wolne Lektury" %} :: 
+
+        <title>{% block title %}{% trans "Biblioteka Otwartej Nauki" %} ::
             {% block titleextra %}{% endblock %}{% endblock %}</title>
-        <link rel="icon" href="{% static "img/favicon.png" %}" type="image/png" />
-        <link rel="search" type="application/opensearchdescription+xml" title="Wolne Lektury" 
-            href="{% static "opensearch.xml" %}" />
-        {% compressed_css "all" %}
-        <link href="{% static "css/core.css" %}" rel="stylesheet" type="text/css" media="screen" />
-        <link href="{% static "css/antiscreen.css" %}" rel="stylesheet" type="text/css" media="screen and (max-width: 480px)" />
-        {#% compressed_css "handheld" %#}
-        <!--[if IE]>
-        	{% compressed_css "ie" %}
-        <![endif]-->
+        <!--<link rel="icon" href="{% static "img/favicon.png" %}" type="image/png" />
+        <link rel="search" type="application/opensearchdescription+xml" title="Biblioteka Otwartej Nauki"
+            href="{% static "opensearch.xml" %}" />-->
+
+        <link href='http://fonts.googleapis.com/css?family=Enriqueta:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" media="screen" />
 
         {% block extrahead %}
         {% endblock %}
     </head>
     <body id="{% block bodyid %}base{% endblock %}">
-        {% include "annoy.html" %}
 
-        {% block bodycontent %}
+        <div id="wrapper" class="{% block wrapperclass %}sub{% endblock %}">
 
-		<div id="header-bg"></div>
+            <div id="inner">
 
-        <div id="header">
+                {% block bodycontent %}
 
-        <div id="header-content">
-            <div id="logo">
-                <a class="logo" href="/">
-                <img id="logo-image" src="{% static "img/logo-neon.png" %}"
-                    alt="Wolne Lektury" /></a>
-            </div>
+                    <div id="top">
 
-            <div id="tagline">
-                <span>
-                {% cache 60 tagline LANGUAGE_CODE %}
-                    {% url 'book_list' as b %}
-                    {% url 'infopage' 'prawa' as r %}
-                        {% count_books book_count %}
-                    {% blocktrans count book_count as c %}
-                    <a href='{{b}}'>{{c}}</a> free reading you have <a href='{{r}}'>right to</a>
-                    {% plural %}
-                    <a href='{{b}}'>{{c}}</a> free readings you have <a href='{{r}}'>right to</a>
-                    {% endblocktrans %}
-                {% endcache %}
-                </span>
-            </div>
+                        <div class="logo">
+                            <a href="/" title="powrót do strony startowej"><img src="{%  static "img/BON_logo.png" %}" alt="Biblioteka Otwartej Nauki"/></a>
+                        </div>
 
-            <p id="user-info" class="mono">
-                {% if user.is_authenticated %}
-                    {% trans "Welcome" %}, 
-                    	<span class="hidden-box-wrapper">
-                    		<a href="{% url 'user_settings' %}" class="hidden-box-trigger">
-                    			<strong>{{ user.username }}</strong>
-                    		</a>
-                    		<span id="user-menu" class="hidden-box">
-                    			<a href="{% url 'account_set_password' %}">{% trans "Password" %}</a><br/>
-                    			<a href="{% url 'account_email' %}">{% trans "E-mail" %}</a><br/>
-                    			<a href="{% url 'socialaccount_connections' %}">{% trans "Social accounts" %}</a><br/>
-                    		</span>
-                    	</span>
-                    | <a href="{% url 'social_my_shelf' %}" id="user-shelves-link">{% trans "My shelf" %}</a>
-                    {% if user.is_staff %}
-                    | <a href="/admin/">{% trans "Administration" %}</a>
-                    {% endif %}
-                    | <a href="{% url 'logout' %}?next={% block logout %}{{ request.get_full_path }}{% endblock %}">{% trans "Logout" %}</a>
-                {% else %}
-                    <a href="{% url 'login' %}?next={{ request.path }}"
-                        id="login" class="ajaxable">
-                            {% trans "Sign in" %}</a>
-                    /
-                    <a href="{% url 'register' %}?next={{ request.path }}"
-                        id="register" class="ajaxable">
-                            {% trans "Register" %}</a>
-                {% endif %}
-            </p>
+                        <p id="user-info">
+                            {% if user.is_authenticated %}
+                                {% trans "Welcome" %},
+                                    <span class="hidden-box-wrapper">
+                                        <a href="{% url 'user_settings' %}" class="hidden-box-trigger">
+                                            <strong>{{ user.username }}</strong>
+                                        </a>
+                                        <span id="user-menu" class="hidden-box">
+                                            <a href="{% url 'account_set_password' %}">{% trans "Password" %}</a><br/>
+                                            <a href="{% url 'account_email' %}">{% trans "E-mail" %}</a><br/>
+                                            <a href="{% url 'socialaccount_connections' %}">{% trans "Social accounts" %}</a><br/>
+                                        </span>
+                                    </span>
+                                | <a href="{% url 'social_my_shelf' %}" id="user-shelves-link">{% trans "My shelf" %}</a>
+                                {% if user.is_staff %}
+                                | <a href="/admin/">{% trans "Administration" %}</a>
+                                {% endif %}
+                                | <a href="{% url 'logout' %}?next={% block logout %}{{ request.get_full_path }}{% endblock %}">{% trans "Logout" %}</a>
+                            {% else %}
+                                <a href="{% url 'login' %}?next={{ request.path }}"
+                                    id="login" class="ajaxable">
+                                        {% trans "Sign in" %}</a>
+                                /
+                                <a href="{% url 'register' %}?next={{ request.path }}"
+                                    id="register" class="ajaxable">
+                                        {% trans "Register" %}</a>
+                            {% endif %}
+                        </p>
 
+                        <div class="menu">
+                            <ul>
+                                <li><a href="/">Strona główna</a></li>
+                                <li><a href="o_projekcie.html">O projekcie</a></li>
+                                <li><a href="{% url 'book_list' %}">Biblioteka</a></li>
+                                <li><a href="{% url 'catalogue' %}#autorzy">Kto udostępnił</a></li>
+                                <li><a href="pytania_i_odpowiedzi.html">Pytania i odpowiedzi</a></li>
+                                <li><a href="kontakt.html">Kontakt</a></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
 
-            <div class="clearboth"></div>
+                    </div><!-- #top -->
 
-        </div>
-        </div>
+                    <div id="content">
+                        <div class="start">
 
-        <div id="half-header">
-        <div id="half-header-content">
+                            {% block body %}{% endblock %}
 
+                        </div>
+                    </div><!-- #content -->
 
+                    <div id="footer">
+                        <div class="left">
+                            <ul>
+                                <li><a href="">Strona główna</a></li>
+                                <li><a href="">O projekcie</a></li>
+                                <li><a href="">Biblioteka</a></li>
+                            </ul>
+                             <ul>
+                                <li><a href="">Kto udostępnił</a></li>
+                                <li><a href="">Pytania i odpowiedzi</a></li>
+                                <li><a href="">Kontakt</a></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="right">
+                            <div class="project">Projekt dofinansowany przez:<br/><br/>
+                                <img src="{% static "img/nia_logo.png" %}" alt=""/>
+                            </div>
+                            <div class="copy">
+                                Biblioteka Otwartej Nauki 2013<br/><br/>
+                                projekt strony internetowej:<br/>
+                                studio CONTROL+N
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div><!-- #footer -->
 
-            <form id="search-area" action="{% url 'search' %}" class="hidelabels">
-                
-                <div id="search-field" class="grid-line">
-                	<label for="search">{{search_form.q.label}}</label>
-		  {{search_form.q}}
-<!--                    <input title="np. Leśmian" name="q" autocomplete="off" data-source="/fullsearch/hint/">-->
-                </div><div id="search-button">
-                    <button type='submit'><span class="mono">{% trans "Search" %}</span></button>
-                </div>
-                
-                <div class="clearboth"></div>
-            </form>
+                {% endblock bodycontent %}
 
+            </div><!-- #wrapper -->
 
+        </div><!-- #inner -->
 
-        </div>
-        </div>
-
-
-
-        <div id="main-content">
-
-            <div id="nav-line">
-                {% catalogue_menu %}
-
-            <div id="lang-menu" class="hoverget">
-                <span id='lang-button' class='mono hoverclick'>
-                    <span class="lang-flag">⚐</span>
-                    {% trans "Language versions" %}</span>
-                <div id="lang-menu-items">
-                {% for lang in LANGUAGES %}
-                    <form action="{% url 'django.views.i18n.set_language' %}" method="post">
-                    {% csrf_token %}
-                    <input type="hidden" name="language" value="{{ lang.0 }}" />
-                    <button type="submit"
-                        lang="{{ lang.0 }}"
-                        class="{% ifequal lang.0 LANGUAGE_CODE %}active{% endifequal %} mono"
-                        >{{ lang.1 }}</button>
-    	            </form>
-                {% endfor %}
-                </div>
-            </div>
-            </div>
-
-            <div class="clearboth"></div>
-
-
-
-            {% block body %}
-            {% endblock %}
-
-
-
-
-        <div class="clearboth"></div>
-
-        </div>{# end main-content #}
-
-
-        <div id="footer">
-        <div id="footer-content">
-            <p>
-            	{% blocktrans %}
-				Wolne Lektury is a project lead by <a href="http://nowoczesnapolska.org.pl/">Modern Poland Foundation</a>.
-				Digital reproductions are made by <a href="http://www.bn.org.pl/">The National Library</a>, <a href="http://www.bs.katowice.pl/">Biblioteka Śląska</a> and <a href="http://www.bibliotekaelblaska.pl/">Biblioteka Elbląska</a>, based on TNL, BŚ and BE resources.
-				Hosting: <a href="http://www.icm.edu.pl/">ICM</a>.
-				{% endblocktrans %}
-            </p>
-            <p>
-            	{% blocktrans %}
-				Modern Poland Foundation, 00-514 Warsaw, ul. Marszałkowska 84/92 lok. 125, tel/fax: (22) 621-30-17
-                e-mail: <a href="mailto:fundacja@nowoczesnapolska.org.pl">fundacja@nowoczesnapolska.org.pl</a>
-				{% endblocktrans %}
-            </p>
-            <p>Nowa strona biblioteki Wolne Lektury powstała dzięki środkom otrzymanym w ramach Programu Operacyjnego Fundusz Inicjatyw Obywatelskich, Senatu RP (zadanie realizowane w ramach zlecania przez Kancelarię Senatu zadań w zakresie opieki nad Polonią i Polakami za granicą w 2011 r.) oraz Narodowego Instytutu Audiowizualnego w ramach programu Dziedzictwo Cyfrowe.</p>
-
-            {% block add_footer %}{% endblock %}
-
-			{% sponsor_page "footer" %}
-        </div>
-        </div>
-
-
-
-        {# template #}
-        <div id="ajaxable-window" class='dialog-window'>
-            <div class="header mono"><a href="#" class="jqmClose">{% trans "Close" %}</a></div>
-            <div class="target">
-                <p><img src="{% static "img/indicator.gif" %}" alt="*"/> {% trans "Loading" %}</p>
-            </div>
-        </div>
-
-
-        {% endblock bodycontent %}
-
-
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <script type="text/javascript">
             var LANGUAGE_CODE = "{{ LANGUAGE_CODE }}";
             var STATIC_URL = "{{ STATIC_URL }}";
         </script>
-        {% compressed_js "base" %}
 
         {{ piwik_tag|safe }}
 
-		{% block extrabody %}
-		{% endblock %}
+        {% block extrabody %}
+        {% endblock %}
 
-        <script src="{% static "js/modernizr.custom.19652.js" %}"></script>
     </body>
 </html>

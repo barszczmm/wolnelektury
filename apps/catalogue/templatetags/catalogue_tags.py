@@ -55,7 +55,7 @@ def html_title_from_tags(tags):
     template = Template("{{ category }}: <a href='{{ tag.get_absolute_url }}'>{{ tag.name }}</a>")
     return capfirst(",<br/>".join(
         template.render(Context({'tag': tag, 'category': _(tag.category)})) for tag in tags))
-    
+
 
 def simple_title(tags):
     title = []
@@ -186,12 +186,12 @@ def book_tree_csv(author, book_list, books_by_parent, depth=1, max_depth=3, deli
             return '"%s"' % s
         except ValueError:
             return s
-        
+
     return "".join("""%(author)s%(d)s%(preindent)s%(title)s%(d)s%(postindent)s%(audiences)s%(d)s%(audiobook)s
 %(children)s""" % {
                 "d": delimeter,
                 "preindent": delimeter * (depth - 1),
-                "postindent": delimeter * (max_depth - depth), 
+                "postindent": delimeter * (max_depth - depth),
                 "depth": depth,
                 "author": quote_if_necessary(author.name),
                 "title": quote_if_necessary(book.title),
@@ -325,7 +325,10 @@ def book_info(book):
 def book_wide(context, book):
     book_themes = book.related_themes()
     extra_info = book.extra_info
-    hide_about = extra_info.get('about', '').startswith('http://wiki.wolnepodreczniki.pl')
+    try:
+        hide_about = extra_info.get('about', '').startswith('http://wiki.wolnepodreczniki.pl')
+    except:
+        hide_about = False
 
     return {
         'book': book,
