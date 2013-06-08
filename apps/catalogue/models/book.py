@@ -54,6 +54,7 @@ class Book(models.Model):
                        upload_to=book_upload_path('jpg'), null=True, blank=True)
     cover_color = models.CharField(_('cover color'), max_length=10, null=True, blank=True,
                                    choices=COVER_COLORS)
+    recommended = models.BooleanField(_('recommended'), default=False)
     ebook_formats = constants.EBOOK_FORMATS
     formats = ebook_formats + ['html', 'xml']
 
