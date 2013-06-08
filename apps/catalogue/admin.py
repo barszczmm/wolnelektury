@@ -28,7 +28,7 @@ class MediaInline(admin.TabularInline):
 class BookAdmin(TaggableModelAdmin):
     tag_model = Tag
 
-    list_display = ('title', 'slug', 'created_at', 'has_epub_file', 'has_html_file', 'has_description',)
+    list_display = ('title', 'slug', 'created_at')
     search_fields = ('title',)
     ordering = ('title',)
 
@@ -46,6 +46,7 @@ class BookAdmin(TaggableModelAdmin):
             self.form = TaggableModelForm
             self.fields = None
             self.readonly_fields = ()
+            self.exclude = ('cover', 'extra_info', 'parent_number')
         return super(BookAdmin, self).change_view(request, object_id,
             extra_context=extra_context)
 

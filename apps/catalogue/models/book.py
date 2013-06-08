@@ -50,13 +50,17 @@ class Book(models.Model):
     number_of_pages = models.PositiveSmallIntegerField(_('number of pages'), null=True, blank=True)
     year_of_publication = models.PositiveSmallIntegerField(_('year of publication'), null=True, blank=True)
 
+    pdf_file = models.FilePathField(_('PDF file'), path=settings.MEDIA_ROOT + 'book/pdf', match='.*\.pdf$',
+                                    null=True, blank=True)
+    xml_file = models.FilePathField(_('XML file'), path=settings.MEDIA_ROOT + 'book/xml', match='.*\.xml$',
+                                    null=True, blank=True)
     cover = EbookField('cover', _('cover'),
                        upload_to=book_upload_path('jpg'), null=True, blank=True)
     cover_color = models.CharField(_('cover color'), max_length=10, null=True, blank=True,
                                    choices=COVER_COLORS)
     recommended = models.BooleanField(_('recommended'), default=False)
-    ebook_formats = constants.EBOOK_FORMATS
-    formats = ebook_formats + ['html', 'xml']
+    ebook_formats = ['pdf']
+    formats = ebook_formats + ['xml']
 
     parent = models.ForeignKey('self', blank=True, null=True, related_name='children')
 
@@ -597,8 +601,8 @@ class Book(models.Model):
 
 
 # add the file fields
-for format_ in Book.formats:
-    field_name = "%s_file" % format_
-    EbookField(format_, _("%s file" % format_.upper()),
-            upload_to=book_upload_path(format_),
-            blank=True, default='').contribute_to_class(Book, field_name)
+#for format_ in Book.formats:
+#    field_name = "%s_file" % format_
+#    EbookField(format_, _("%s file" % format_.upper()),
+#            upload_to=book_upload_path(format_),
+#            blank=True, default='').contribute_to_class(Book, field_name)
