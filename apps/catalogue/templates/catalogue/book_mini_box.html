@@ -1,5 +1,5 @@
 <div class="pos {{ classes }}">
-    <div class="book black">
+    <div class="book {{ book.cover_color|default:"gray" }}">
         <div class="cover">
             <div class="title"><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></div>
             <div class="author">{{ author_str }}</div>

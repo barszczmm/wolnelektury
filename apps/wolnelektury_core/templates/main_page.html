@@ -79,23 +79,19 @@
 
         <div class="pub left">
             <div class="screen">
-                <img alt="" src="img/p5.jpg">
+                <img alt="" src="{% static "img/p5.jpg" %}">
                 <a class="play" href="">odtwórz</a>
             </div>
              <div class="book orange">
                 <div class="cover">
                     <div class="title">TEORETYCY, HISTORIOGRAFOWIE I ARTYŚCI O SZTUCE<br>1600-1700</div>
-                    <div class="author">
-                        MARIA POPRZĘCKA
-                    </div>
+                    <div class="author">MARIA POPRZĘCKA</div>
                 </div>
             </div>
             <div class="book black">
                 <div class="cover">
                      <div class="title">CZAS WYOBRAŻONY. O SPOSOBACH OPOWIADANIA W POLSKIM MALARSTWIE XIX WIEKU</div>
-                    <div class="author">
-                        MARIA POPRZĘCKA
-                    </div>
+                    <div class="author">MARIA POPRZĘCKA</div>
                 </div>
             </div>
             <div class="quote">
@@ -109,9 +105,7 @@
             <div class="book gray">
                 <div class="cover">
                      <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
-                    <div class="author">
-                        WŁODZIMIERZ LENGAUER
-                    </div>
+                    <div class="author">WŁODZIMIERZ LENGAUER</div>
                 </div>
             </div>
 
@@ -120,75 +114,16 @@
                 <p>„Będę znany, będę miał nazwisko. Ludzie czasem nawet dojdą do wniosku, że muszą zacytować.”</p>
             </div>
             <div class="screen">
-                <img alt="" src="img/p6.jpg">
+                <img alt="" src="{% static "img/p6.jpg" %}">
                 <a class="play" href="">odtwórz</a>
             </div>
             <div class="clear"></div>
         </div>
 
+
         <div class="recommended">
             <h2>polecane pozycje</h2>
-
-            <div class="pos">
-                <div class="book black">
-                    <div class="cover">
-                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
-                        <div class="author">
-                            WŁODZIMIERZ LENGAUER
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pos">
-                <div class="book gray">
-                    <div class="cover">
-                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
-                        <div class="author">
-                            WŁODZIMIERZ LENGAUER
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pos">
-                <div class="book orange">
-                    <div class="cover">
-                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
-                        <div class="author">
-                            WŁODZIMIERZ LENGAUER
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pos">
-                <div class="book gray">
-                    <div class="cover">
-                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
-                        <div class="author">
-                            WŁODZIMIERZ LENGAUER
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pos">
-                <div class="book black">
-                    <div class="cover">
-                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
-                        <div class="author">
-                            WŁODZIMIERZ LENGAUER
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pos last">
-                <div class="book orange">
-                    <div class="cover">
-                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
-                        <div class="author">
-                            WŁODZIMIERZ LENGAUER
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% recommended_books %}
             <div class="clear"></div>
         </div>
 

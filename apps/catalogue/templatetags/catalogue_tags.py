@@ -354,8 +354,7 @@ def book_short(context, book):
 def book_mini(book, classes=''):
     author_str = ''
     if 'author' in book.related_info()['tags']:
-        author_str = ", ".join(name
-            for name, url in book.related_info()['tags']['author'])
+        author_str = ", ".join(name for name, url in book.related_info()['tags']['author'])
     return {
         'book': book,
         'author_str': author_str,
@@ -413,6 +412,19 @@ def related_books(book, limit=6, random=1):
         'books': related,
     }
 
+@register.inclusion_tag('catalogue/recommended_books.html')
+def recommended_books(limit=6, random=True):
+    cache_key = "catalogue.recommended_books"
+    recommended = cache.get(cache_key)
+    if recommended is None:
+        recommended = Book.objects.filter(recommended=True)
+        if random:
+            recommended = recommended.order_by('?')
+        recommended = recommended[:limit]
+        cache.set(cache_key, recommended, 1800)
+    return {
+        'books': recommended,
+    }
 
 @register.inclusion_tag('catalogue/menu.html')
 def catalogue_menu():
