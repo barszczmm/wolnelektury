@@ -43,19 +43,19 @@
             <a href="">Pobierz książkę</a>
             <div class="book-box-formats">
                 {% if book.pdf_file %}
-                    <span><a href="{{ book.pdf_file.url}}">PDF</a> {% trans "to print" %}</span>
+                    <span><a href="{{ book.pdf_file.url }}">PDF</a> {% trans "to print" %}</span>
                 {% endif %}
-                {% if  book.epub_file %}
-                    <span><a href="{{ book.epub_file.url}}">EPUB</a> {% trans "for an e-book reader" %}</span>
+                {% if book.epub_file %}
+                    <span><a href="{{ book.epub_file.url }}">EPUB</a> {% trans "for an e-book reader" %}</span>
                 {% endif %}
-                {% if  book.mobi_file %}
-                    <span><a href="{{ book.mobi_file.url}}">MOBI</a> {% trans "for Kindle" %}</span>
+                {% if book.mobi_file %}
+                    <span><a href="{{ book.mobi_file.url }}">MOBI</a> {% trans "for Kindle" %}</span>
                 {% endif %}
-                {% if  book.fb2_file %}
-                    <span><a href="{{ book.fb2_file.url}}">FB2</a> {% trans "FictionBook" %}</span>
+                {% if book.fb2_file %}
+                    <span><a href="{{ book.fb2_file.url }}">FB2</a> {% trans "FictionBook" %}</span>
                 {% endif %}
-                {% if  book.txt_file %}
-                    <span><a href="{{ book.txt_file.url}}">TXT</a> {% trans "for advanced usage" %}</span>
+                {% if book.txt_file %}
+                    <span><a href="{{ book.txt_file.url }}">TXT</a> {% trans "for advanced usage" %}</span>
                 {% endif %}
             </div>
         </div>

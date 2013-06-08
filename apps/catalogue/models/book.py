@@ -3,6 +3,7 @@
 # Copyright © Fundacja Nowoczesna Polska. See NOTICE for more information.
 #
 import re
+
 from django.conf import settings as settings
 from django.core.cache import get_cache
 from django.db import models
@@ -10,7 +11,10 @@ from django.db.models import permalink
 import django.dispatch
 from django.utils.datastructures import SortedDict
 from django.utils.translation import ugettext_lazy as _
+
 import jsonfield
+from hybrid_filefield.fields import FileSelectOrUpload
+
 from catalogue import constants
 from catalogue.fields import EbookField
 from catalogue.models import Tag, Fragment, BookMedia
@@ -50,22 +54,39 @@ class Book(models.Model):
     number_of_pages = models.PositiveSmallIntegerField(_('number of pages'), null=True, blank=True)
     year_of_publication = models.PositiveSmallIntegerField(_('year of publication'), null=True, blank=True)
 
-    pdf_file = models.FilePathField(_('PDF file'), path=settings.MEDIA_ROOT + 'book/pdf', match='.*\.pdf$',
+    pdf_file = FileSelectOrUpload(_('PDF file'),
+                                  upload_to='book/pdf',
+                                  path=settings.MEDIA_ROOT + 'book/pdf', match='.*\.pdf$',
+                                  null=True, blank=True)
+    xml_file = FileSelectOrUpload(_('XML file'),
+                                  upload_to='book/xml',
+                                  path=settings.MEDIA_ROOT + 'book/xml', match='.*\.xml$',
+                                  null=True, blank=True)
+    html_file = FileSelectOrUpload(_('HTML file'),
+                                   upload_to='book/xml',
+                                   path=settings.MEDIA_ROOT + 'book/html', match='.*\.html$',
                                     null=True, blank=True)
-    xml_file = models.FilePathField(_('XML file'), path=settings.MEDIA_ROOT + 'book/xml', match='.*\.xml$',
-                                    null=True, blank=True)
-    html_file = models.FilePathField(_('HTML file'), path=settings.MEDIA_ROOT + 'book/html', match='.*\.html$',
-                                     null=True, blank=True)
-    epub_file = models.FilePathField(_('EPUB file'), path=settings.MEDIA_ROOT + 'book/epub', match='.*\.epub$',
-                                     null=True, blank=True)
-    mobi_file = models.FilePathField(_('MOBI file'), path=settings.MEDIA_ROOT + 'book/mobi', match='.*\.mobi$',
-                                     null=True, blank=True)
-    txt_file = models.FilePathField(_('TXT file'), path=settings.MEDIA_ROOT + 'book/txt', match='.*\.txt$',
-                                    null=True, blank=True)
-    fb2_file = models.FilePathField(_('FB2 file'), path=settings.MEDIA_ROOT + 'book/fb2', match='.*\.fb2$',
-                                    null=True, blank=True)
-    cover = EbookField('cover', _('cover'),
-                       upload_to=book_upload_path('jpg'), null=True, blank=True)
+    epub_file = FileSelectOrUpload(_('EPUB file'),
+                                   upload_to='book/epub',
+                                   path=settings.MEDIA_ROOT + 'book/epub', match='.*\.epub$',
+                                   null=True, blank=True)
+    mobi_file = FileSelectOrUpload(_('MOBI file'),
+                                   upload_to='book/mobi',
+                                   path=settings.MEDIA_ROOT + 'book/mobi', match='.*\.mobi$',
+                                   null=True, blank=True)
+    txt_file = FileSelectOrUpload(_('TXT file'),
+                                  upload_to='book/txt',
+                                  path=settings.MEDIA_ROOT + 'book/txt', match='.*\.txt$',
+                                  null=True, blank=True)
+    fb2_file = FileSelectOrUpload(_('FB2 file'),
+                                  upload_to='book/fb2',
+                                  path=settings.MEDIA_ROOT + 'book/fb2', match='.*\.fb2$',
+                                  null=True, blank=True)
+
+    cover = FileSelectOrUpload(_('cover'),
+                               upload_to='book/jpg',
+                               path=settings.MEDIA_ROOT + 'book/jpg', match='.*\.jpg$',
+                               null=True, blank=True)
     cover_color = models.CharField(_('cover color'), max_length=10, null=True, blank=True,
                                    choices=COVER_COLORS)
     recommended = models.BooleanField(_('recommended'), default=False)

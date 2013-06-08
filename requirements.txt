@@ -55,3 +55,5 @@ egenix-mx-base
 sunburnt
 
 httplib2
+
+git+git://github.com/barszczmm/django-hybrid-filefield.git@9dc3f63615b1d5735f25#egg=django-hybrid-filefield
