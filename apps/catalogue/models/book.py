@@ -54,6 +54,16 @@ class Book(models.Model):
                                     null=True, blank=True)
     xml_file = models.FilePathField(_('XML file'), path=settings.MEDIA_ROOT + 'book/xml', match='.*\.xml$',
                                     null=True, blank=True)
+    html_file = models.FilePathField(_('HTML file'), path=settings.MEDIA_ROOT + 'book/html', match='.*\.html$',
+                                     null=True, blank=True)
+    epub_file = models.FilePathField(_('EPUB file'), path=settings.MEDIA_ROOT + 'book/epub', match='.*\.epub$',
+                                     null=True, blank=True)
+    mobi_file = models.FilePathField(_('MOBI file'), path=settings.MEDIA_ROOT + 'book/mobi', match='.*\.mobi$',
+                                     null=True, blank=True)
+    txt_file = models.FilePathField(_('TXT file'), path=settings.MEDIA_ROOT + 'book/txt', match='.*\.txt$',
+                                    null=True, blank=True)
+    fb2_file = models.FilePathField(_('FB2 file'), path=settings.MEDIA_ROOT + 'book/fb2', match='.*\.fb2$',
+                                    null=True, blank=True)
     cover = EbookField('cover', _('cover'),
                        upload_to=book_upload_path('jpg'), null=True, blank=True)
     cover_color = models.CharField(_('cover color'), max_length=10, null=True, blank=True,
