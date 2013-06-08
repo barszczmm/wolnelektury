@@ -1,20 +1,8 @@
-{% load thumbnail %}
-<div class="book-mini-box">
-    <a href="{{ book.get_absolute_url }}">
-        {% if book.cover %}
-            <img src="
-                {% thumbnail book.cover "139x193" as thumb %}
-                    {{ thumb.url }}
-                {% empty %}
-                    {{ book.cover.url }}
-                {% endthumbnail %}
-            " alt="{{ author_str }} – {{ book.title }}" class="cover" />
-        {% endif %}
-        <div class="desc">
-            <span class="mono author">{{ author_str }}</span>
-            <span class="title">{{ book.title }}</span>
+<div class="pos {{ classes }}">
+    <div class="book black">
+        <div class="cover">
+            <div class="title"><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></div>
+            <div class="author">{{ author_str }}</div>
         </div>
-    </a>
+    </div>
 </div>
-
-

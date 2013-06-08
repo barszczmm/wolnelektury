@@ -25,6 +25,7 @@ urlpatterns += patterns('',
 urlpatterns += patterns('catalogue.views',
     url(r'^$', 'catalogue', name='catalogue'),
 
+    url(r'^autorzy/$', 'authors', name='authors'),
     url(r'^lektury/$', 'book_list', name='book_list'),
     url(r'^lektury/(?P<slug>[a-zA-Z0-9-]+)/$', 'collection', name='collection'),
     url(r'^audiobooki/$', 'audiobook_list', name='audiobook_list'),

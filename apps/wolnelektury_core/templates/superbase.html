@@ -73,11 +73,11 @@
                         <div class="menu">
                             <ul>
                                 <li><a href="/">Strona główna</a></li>
-                                <li><a href="o_projekcie.html">O projekcie</a></li>
+                                <li><a href="/info/o-projekcie/">O projekcie</a></li>
                                 <li><a href="{% url 'book_list' %}">Biblioteka</a></li>
-                                <li><a href="{% url 'catalogue' %}#autorzy">Kto udostępnił</a></li>
-                                <li><a href="pytania_i_odpowiedzi.html">Pytania i odpowiedzi</a></li>
-                                <li><a href="kontakt.html">Kontakt</a></li>
+                                <li><a href="{% url 'authors' %}">Kto udostępnił</a></li>
+                                <li><a href="/info/pytania-i-odpowiedzi/">Pytania i odpowiedzi</a></li>
+                                <li><a href="/info/kontakt/">Kontakt</a></li>
                             </ul>
                             <div class="clear"></div>
                         </div>
@@ -85,24 +85,22 @@
                     </div><!-- #top -->
 
                     <div id="content">
-                        <div class="start">
 
-                            {% block body %}{% endblock %}
+                        {% block body %}{% endblock %}
 
-                        </div>
                     </div><!-- #content -->
 
                     <div id="footer">
                         <div class="left">
                             <ul>
-                                <li><a href="">Strona główna</a></li>
-                                <li><a href="">O projekcie</a></li>
-                                <li><a href="">Biblioteka</a></li>
+                                <li><a href="/">Strona główna</a></li>
+                                <li><a href="/info/o-projekcie/">O projekcie</a></li>
+                                <li><a href="{% url 'book_list' %}">Biblioteka</a></li>
                             </ul>
                              <ul>
-                                <li><a href="">Kto udostępnił</a></li>
-                                <li><a href="">Pytania i odpowiedzi</a></li>
-                                <li><a href="">Kontakt</a></li>
+                                <li><a href="{% url 'authors' %}">Kto udostępnił</a></li>
+                                <li><a href="info/pytania-i-odpowiedzi/">Pytania i odpowiedzi</a></li>
+                                <li><a href="/info/kontakt/">Kontakt</a></li>
                             </ul>
                             <div class="clear"></div>
                         </div>

@@ -41,6 +41,7 @@ class BookAdmin(TaggableModelAdmin):
             self.form = forms.ModelForm
             self.fields = ('title', 'description', 'gazeta_link', 'wiki_link')
             self.readonly_fields = ('title',)
+            self.prepopulated_fields = {}
         else:
             self.form = TaggableModelForm
             self.fields = None

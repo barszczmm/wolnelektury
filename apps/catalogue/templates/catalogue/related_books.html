@@ -2,6 +2,11 @@
 
 {% spaceless %}
 {% for book in books %}
-    {% book_mini book %}
+    {% if forloop.counter == 6 %}
+        {% book_mini book 'last' %}
+    {% else %}
+        {% book_mini book %}
+    {% endif %}
 {% endfor %}
+<div class="clear"></div>
 {% endspaceless %}

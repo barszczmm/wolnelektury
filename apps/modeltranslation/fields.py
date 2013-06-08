@@ -43,12 +43,8 @@ class TranslationField(Field):
         self.name = self.attname
 
         # Copy the verbose name and append a language suffix (will e.g. in the
-        # admin). This might be a proxy function so we have to check that here.
-        if hasattr(translated_field.verbose_name, '_proxy____unicode_cast'):
-            verbose_name = \
-                translated_field.verbose_name._proxy____unicode_cast()
-        else:
-            verbose_name = translated_field.verbose_name
+        # admin).
+        verbose_name = unicode(translated_field.verbose_name)
         self.verbose_name = '%s [%s]' % (verbose_name, language)
 
     def pre_save(self, model_instance, add):

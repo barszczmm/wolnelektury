@@ -61,31 +61,28 @@ def catalogue(request):
         return render_to_response('catalogue/catalogue.html', locals(),
             context_instance=RequestContext(request))
 
+def authors(request):
+    authors = models.Tag.objects.filter(category='author').exclude(book_count=0).order_by('name')
+    authors = list(authors)
+    authors_by_letters = {}
+    for author in authors:
+        first_letter = author.name[0:1]
+        if first_letter in authors_by_letters:
+            authors_by_letters[first_letter].append(author)
+        else:
+            authors_by_letters[first_letter] = [author]
+    authors_by_letters = authors_by_letters.items()
+    print authors_by_letters
+    return render_to_response('catalogue/authors.html',
+                              {'authors_by_letters': authors_by_letters},
+                              context_instance=RequestContext(request))
 
-def book_list(request, filter=None, get_filter=None,
-        template_name='catalogue/book_list.html',
-        nav_template_name='catalogue/snippets/book_list_nav.html',
-        list_template_name='catalogue/snippets/book_list.html',
-        cache_key='catalogue.book_list',
-        context=None,
-        ):
-    """ generates a listing of all books, optionally filtered with a test function """
-    cached = permanent_cache.get(cache_key)
-    if cached is not None:
-        rendered_nav, rendered_book_list = cached
-    else:
-        if get_filter:
-            filter = get_filter()
-        books_by_author, orphans, books_by_parent = models.Book.book_list(filter)
-        books_nav = SortedDict()
-        for tag in books_by_author:
-            if books_by_author[tag]:
-                books_nav.setdefault(tag.sort_key[0], []).append(tag)
-        rendered_nav = render_to_string(nav_template_name, locals())
-        rendered_book_list = render_to_string(list_template_name, locals())
-        permanent_cache.set(cache_key, (rendered_nav, rendered_book_list))
-    return render_to_response(template_name, locals(),
-        context_instance=RequestContext(request))
+def book_list(request, template_name='catalogue/book_list.html'):
+    """ generates a listing of all books"""
+    books = models.Book.objects.all()
+    return render_to_response(template_name,
+                              {'books': books},
+                              context_instance=RequestContext(request))
 
 
 def audiobook_list(request):

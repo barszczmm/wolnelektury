@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n list_to_columns %}
+
+
+{% block titleextra %}Kto udostępnił{% endblock %}
+
+{% block bodyid %}catalogue-authors{% endblock %}
+
+{% block body %}
+    <div class="start">
+        <h1>kto udostępnił</h1>
+
+        {% list_to_columns authors_by_letters as columns 4 %}
+        {% for column in columns %}
+            <div class="col{% if forloop.last %} collast{% endif %}">
+                {% for authors_by_letter in column %}
+                    <h2>{{ authors_by_letter.0 }}</h2>
+                    <ul>
+                    {% for author in authors_by_letter.1 %}
+                        <li><a href="{{ author.get_absolute_url }}">{{ author }}</a>
+                    {% endfor %}
+                    </ul>
+                {% endfor %}
+            </div>
+        {% endfor %}
+        <div class="clear"></div>
+    </div>
+{% endblock %}

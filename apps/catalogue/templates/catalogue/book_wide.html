@@ -1,76 +1,72 @@
-{% extends "catalogue/book_short.html" %}
 {% load i18n %}
-{% load download_audio tag_list custom_pdf_link_li license_icon from catalogue_tags %}
+{% load download_audio tag_list custom_pdf_link_li license_icon tag_url from catalogue_tags %}
 {% load cite_promo from social_tags %}
 
-
-{% block box-class %}book-wide-box{% endblock %}
-
-
-{% block cover-area-extra %}
-{% if extra_info.license %}
-    {% license_icon extra_info.license %}
-{% endif %}
-{% endblock %}
-
-
-
-{% block book-box-extra-info %}
-{% if themes %}
-    <div class="hidden-box-wrapper" id="theme-list-wrapper">
-        <p><a class="mono hidden-box-trigger theme-list-link"
-                href="#">{% trans "Motifs and themes" %}</a></p>
-        <div class="hidden-box">
-            <ul>
-            {% for theme in themes %}
-                <li><a href="{% url 'book_fragments' book.slug theme.slug %}">{{ theme }} ({{ theme.count }})</a></li>
-            {% endfor %}
-            </ul>
+<div class="contentbox">
+    <div class="pos">
+        <div class="book gray">
+            <div class="cover">
+                <div class="title">
+                    {% if main_link %}<a href="{{ main_link }}">{% endif %}
+                    {{ book.title }}
+                    {% if main_link %}</a>{% endif %}
+                </div>
+                <div class="author">
+                    {% for name, slug in related.tags.author %}
+                        <a href="{% tag_url 'author' slug %}">{{ name }}</a>
+                        {% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                    {% for title, slug in related.parents %},
+                        <a href="{% url 'book_detail' slug %}">{{ title }}</a>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
-{% else %}
-	<p>&nbsp;</p>
-{% endif %}
-{% endblock %}
-
-
-{% block right-column %}
-<div class="right-column">
-    <div class="quote">
-  {% cite_promo book 1 %}
-  </div>
-
-  <div class="other-tools">
-    <h2 class="mono">{% trans "See" %}</h2>
-    <ul class="plain">
-      {% if extra_info.source_url %}
-      <li><a href="{{ extra_info.source_url }}">{% trans "Source" %}</a> {% trans "of the book" %}</li>
-      {% endif %}
-      {% if book.xml_file %}
-      <li><a href="{{ book.xml_file.url }}">{% trans "Source XML file" %}</a></li>
-      {% endif %}
-      {% if extra_info.about and not hide_about %}
-      <li>{% trans "Book on" %} <a href="{{ extra_info.about }}">{% trans "Editor's Platform" %}</a></li>
-      {% endif %}
-      {% if book.gazeta_link %}
-      <li><a href="{{ book.gazeta_link }}">{% trans "Book description on Lektury.Gazeta.pl" %}</a></li>
-      {% endif %}
-      {% if book.wiki_link %}
-      <li><a href="{{ book.wiki_link }}">{% trans "Book description on Wikipedia" %}</a></li>
-      {% endif %}
-    </ul>
-  </div>
-  <div class="other-download">
-    <h2 class="mono">{% trans "Download" %}</h2>
-    <ul class="plain">
-      <li>
-	{% if related.media.mp3 or related.media.ogg or related.media.daisy %}
-        {% trans "Download all audiobooks for this book" %}:
-	    {% download_audio book %}.
-	{% endif %}
-      </li>
-      {% custom_pdf_link_li book %}
-    </ul>
-  </div>
+    <div class="posinfo">
+        <div class="postitle">
+            {% if main_link %}<a href="{{ main_link }}">{% endif %}
+            {{ book.title }}
+            {% if main_link %}</a>{% endif %}
+        </div>
+        <div class="posauth">
+            {% for name, slug in related.tags.author %}
+                <a href="{% tag_url 'author' slug %}">{{ name }}</a>
+                {% if not forloop.last %},{% endif %}
+            {% endfor %}
+            {% for title, slug in related.parents %},
+                <a href="{% url 'book_detail' slug %}">{{ title }}</a>
+            {% endfor %}
+        </div>
+        <div class="actions">
+            <a href="">Informacje o licencji</a>
+            <a href="">Pobierz książkę</a>
+            <div class="book-box-formats">
+                {% if book.pdf_file %}
+                    <span><a href="{{ book.pdf_file.url}}">PDF</a> {% trans "to print" %}</span>
+                {% endif %}
+                {% if  book.epub_file %}
+                    <span><a href="{{ book.epub_file.url}}">EPUB</a> {% trans "for an e-book reader" %}</span>
+                {% endif %}
+                {% if  book.mobi_file %}
+                    <span><a href="{{ book.mobi_file.url}}">MOBI</a> {% trans "for Kindle" %}</span>
+                {% endif %}
+                {% if  book.fb2_file %}
+                    <span><a href="{{ book.fb2_file.url}}">FB2</a> {% trans "FictionBook" %}</span>
+                {% endif %}
+                {% if  book.txt_file %}
+                    <span><a href="{{ book.txt_file.url}}">TXT</a> {% trans "for advanced usage" %}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="clear"></div>
 </div>
-{% endblock %}
+
+<div class="info">
+    <h2>co zrobiliśmy, aby ta książka była dostępna?</h2>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et sem in neque interdum cursus. Integer id ligula sit amet urna gravida venenatis. Proin hendrerit, quam nec bibendum pulvinar, nunc elit pharetra neque, eu accumsan mi velit a nisi. Suspendisse mi quam, pulvinar non lacinia sed, tempus vel sem. </p>
+</div>
+
+<div class="clear"></div>

@@ -11,7 +11,7 @@ class InfoPage(models.Model):
     main_page = models.IntegerField(_('main page priority'), null=True, blank=True)
     slug = models.SlugField(_('slug'), max_length=120, unique=True, db_index=True)
     title = models.CharField(_('title'), max_length=120, blank=True)
-    left_column = models.TextField(_('left column'), blank=True)
+    left_column = models.TextField(_('content'), blank=True)
     right_column = models.TextField(_('right column'), blank=True)
 
     class Meta:

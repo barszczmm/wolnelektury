@@ -3,112 +3,195 @@
 {% load cache chunks i18n catalogue_tags infopages_tags social_tags %}
 
 
-{% block title %}{% trans "Wolne Lektury internet library" %}{% endblock %}
-{% block ogtitle %}{% trans "Wolne Lektury internet library" %}{% endblock %}
+{% block title %}{% trans "Biblioteka Otwartej Nauki" %}{% endblock %}
+{% block ogtitle %}{% trans "Biblioteka Otwartej Nauki" %}{% endblock %}
+
+{% block wrapperclass %}{% endblock %}
 
 {% block body %}
-    <div id="big-cite"{% if cite.image %}
-        style="
-            background-image: url('{{ cite.image.url }}');
-            background-position: 50% {{ cite.image_shift|default_if_none:50 }}%;
-        "{% endif %} >
-        {% render_cite cite %}
-    </div>
-
     {% spaceless %}
 
+        <div class="start">
 
-    <div id="promo-box">
-		<div id="promo-box-header"><h2 class="mono">
-			{% trans "What's new?" %}
-		</h2></div>
-		<div id="promo-box-body">
-        	{% chunk "promo" %}
-      	</div>
-    </div>
+            <h1>udostępnij swoje książki</h1>
 
+            <div class="step">
+                <h3>01</h3>
+                <p>autor zgłasza chęć<br>
+                udostępnienia<br>
+                książki w kolekcji<br>
+                BON
+                </p>
+            </div>
+            <div class="step">
+                <h3>02</h3>
+                <p>rozwiązujemy<br>
+                kwestie praw<br>
+                autorskich. jeśli<br>
+                trzeba rozmawiamy<br>
+                z wydawcami
+                </p>
+            </div>
+            <div class="step">
+                <h3>03</h3>
+                <p>skanujemy ksiązki.<br>
+                ze skanów wyciągamy warstwę tekstową,<br>
+                aby ksiązki mozna<br>
+                było przeszukiwać
+                </p>
+            </div>
+            <div class="step last">
+                <h3>04</h3>
+                <p>książka otrzymuje<br>
+                nową okładkę<br>
+                i jest udostępniona<br>
+                w serwisie</p>
+            </div>
+            <div class="step">
+                <h3>05</h3>
+                <p>ksiązka pojawia się<br>
+                w wyszukiwarkach<br>
+                naukowych jak google<br>
+                scholar czy scirus &mdash;<br>
+                jest widoczna na całym<br>
+                świecie. indeks cytowań<br>
+                autora wzrasta</p>
+            </div>
+            <div class="mform">
+                <div class="box">
+                    <h2>jeśli jesteś zainteresowany,<br>wypełnij formularz</h2>
+                    <form>
+                        <input type="text" placeholder="Imię i nazwisko" name="person">
+                        <input type="text" placeholder="adres e-mail" name="mail">
+                        <input type="text" placeholder="Numer telefonu" name="phone">
+                        <input type="submit" value="Wyślij">
+                    </form>
+                </div>
+            </div>
+            <div class="actions">
+                <a href="">Dowiedz się więcej</a>
+                <a href="">Skontaktuj się z nami</a>
+            </div>
 
-    <h2 class="main-last"><span class="mono">{% trans "Recent publications" %}</span></h2>
-        {% cache 60 last-published-on-main %}
-            {% for book in last_published %}
-                {% book_mini book %}
-            {% endfor %}
-        {% endcache %}
-
-    <div class="clearboth"></div>
-
-    <div class="infopages-box">
-        <h2><span class='mono'>{% trans "News" %}</span></h2>
-	{# 135 is the id of new publications category of our master blog. perhaps this URL should go to settings. #}
-        {% cache 1800 latest-blog-posts %}
-            {% latest_blog_posts "http://nowoczesnapolska.org.pl/feed/?cat=-135" %}
-        {% endcache %}
-    </div>
-
-
-    <div class="infopages-box">
-        <h2><span class='mono'>{% trans "Utilities" %}</span></h2>
-
-        <ul>
-            <li><a href="{% url 'suggest' %}" id="suggest" class="ajaxable">{% trans "Report a bug or suggestion" %}</a></li>
-            <!--li><a href="http://turniej.wolnelektury.pl">Turniej Elektrybałtów</a></li-->
-            <li><a href="{% url 'reporting_catalogue_pdf' %}">
-        		{% trans "Download the catalogue in PDF format." %}
-    		</a></li>
-            <!--li><a href="{% url 'infopage' "widget" %}">{% trans "Widget" %}</a></li-->
-            <li><a href="{% url 'suggest_publishing' %}" id="suggest-publishing" class="ajaxable">{% trans "Missing a book?" %}</a></li>
-            <li><a href="{% url 'publish_plan' %}">{% trans "Publishing plan" %}</a></li>
-            <li><a href="{% url 'api' %}">API</a></li>
-            <li><a href="{% url 'oaipmh' %}">OAI-PMH</a></li>
-            <li><a href="{% url 'lesmianator' %}" lang="pl">Leśmianator</a></li>
-            <li><a href="http://polski.wolnelektury.pl" lang="pl">Materiały do nauki j. polskiego</a></li>
-            
-        </ul>
-    </div>
-
-
-    <div class="infopages-box">
-        <h2><span class='mono'>{% trans "Information" %}</span></h2>
-        <ul>
-            <li><a href="http://nowoczesnapolska.org.pl/prywatnosc/">{% trans "Privacy policy" %}</a></li>
-        {% cache 60 infopages-on-main LANGUAGE_CODE %}
-            {% infopages_on_main %}
-        {% endcache %}
-        </ul>
-
-        <div class="social-links">
-            <a href="http://pl-pl.facebook.com/pages/Wolne-Lektury/203084073268"
-                title='Wolne Lektury @ Facebook'>
-                <img src="{% static "img/social/f.png" %}" alt="Wolne Lektury @ Facebook" />
-            </a>
-            <a href="http://nk.pl/profile/30441509"
-                title='Wolne Lektury @ NK'>
-                <img src="{% static "img/social/nk.png" %}" alt="Wolne Lektury @ NK.pl" />
-            </a>
+            <div class="clear"></div>
         </div>
-    </div>
 
+
+        <div class="pub left">
+            <div class="screen">
+                <img alt="" src="img/p5.jpg">
+                <a class="play" href="">odtwórz</a>
+            </div>
+             <div class="book orange">
+                <div class="cover">
+                    <div class="title">TEORETYCY, HISTORIOGRAFOWIE I ARTYŚCI O SZTUCE<br>1600-1700</div>
+                    <div class="author">
+                        MARIA POPRZĘCKA
+                    </div>
+                </div>
+            </div>
+            <div class="book black">
+                <div class="cover">
+                     <div class="title">CZAS WYOBRAŻONY. O SPOSOBACH OPOWIADANIA W POLSKIM MALARSTWIE XIX WIEKU</div>
+                    <div class="author">
+                        MARIA POPRZĘCKA
+                    </div>
+                </div>
+            </div>
+            <div class="quote">
+                <h5>Prof. Maria Poprzęcka</h5>
+                <p>„Nie czuję się jakąś zachłanną, zawistną właścicielką <br>swoich praw intelektualnych.”</p>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="pub right publast">
+            <div class="book gray">
+                <div class="cover">
+                     <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
+                    <div class="author">
+                        WŁODZIMIERZ LENGAUER
+                    </div>
+                </div>
+            </div>
+
+            <div class="quote">
+                <h5>Prof. WŁODZIMIERZ LENGAUER</h5>
+                <p>„Będę znany, będę miał nazwisko. Ludzie czasem nawet dojdą do wniosku, że muszą zacytować.”</p>
+            </div>
+            <div class="screen">
+                <img alt="" src="img/p6.jpg">
+                <a class="play" href="">odtwórz</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+        <div class="recommended">
+            <h2>polecane pozycje</h2>
+
+            <div class="pos">
+                <div class="book black">
+                    <div class="cover">
+                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
+                        <div class="author">
+                            WŁODZIMIERZ LENGAUER
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pos">
+                <div class="book gray">
+                    <div class="cover">
+                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
+                        <div class="author">
+                            WŁODZIMIERZ LENGAUER
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pos">
+                <div class="book orange">
+                    <div class="cover">
+                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
+                        <div class="author">
+                            WŁODZIMIERZ LENGAUER
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pos">
+                <div class="book gray">
+                    <div class="cover">
+                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
+                        <div class="author">
+                            WŁODZIMIERZ LENGAUER
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pos">
+                <div class="book black">
+                    <div class="cover">
+                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
+                        <div class="author">
+                            WŁODZIMIERZ LENGAUER
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pos last">
+                <div class="book orange">
+                    <div class="cover">
+                         <div class="title">ATENY I OKOLICE: PRZEWODNIK TURYSTYCZNY [WSPÓŁAUTORZY: J.PAŁĘCKA, O.SOBAŃSKI]</div>
+                        <div class="author">
+                            WŁODZIMIERZ LENGAUER
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
 
     {% endspaceless %}
 
-{% endblock %}
-
-
-{% block add_footer %}
-<p>{% trans "Image used:" %} 
-{% if cite.image %}
-    {% if cite.image_link %}<a href="{{ cite.image_link }}">{% endif %}
-    {% if cite.image_title %}
-        {{ cite.image_title }}{% else %}
-        untitled{% endif %}{% if cite.image_link %}</a>{% endif %},
-    {% if cite.image_author %}{{ cite.image_author }},{% endif %}
-    {% if cite.image_license_link %}<a href="{{ cite.image_license_link }}">{% endif %}
-    {{ cite.image_license }}
-    {% if cite.image_license_link %}</a>{% endif %}
-{% else %}
-    <a href="http://www.flickr.com/photos/lou/430980641/">books about architecture</a>,
-    saikofish@Flickr,
-    <a href="http://creativecommons.org/licenses/by-nc-sa/2.0/">CC BY NC SA</a>.
-{% endif %}
-</p>
 {% endblock %}

@@ -12,7 +12,7 @@
 	<p>{% trans "The criteria are ambiguous. Please select one of the following options:" %}</p>
     <div id="books-list">
         {% for option in options %}
-        <div class="book-description"
+        <div class="book-description">
             <p><a href="{% url 'tagged_object_list' option.url_args %}">{% if tags %}{% title_from_tags tags %}, {% endif %}<em>{%title_from_tags option.tags %}</em>{% if unparsed %}, {{unparsed|join:', '}}{% endif %}</a></p>
 		</div>
         {% endfor %}

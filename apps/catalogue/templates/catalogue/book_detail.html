@@ -11,13 +11,15 @@
 {% block bodyid %}book-detail{% endblock %}
 
 {% block body %}
+    <div class="start">
+        <h1>o książce</h1>
 
-{% book_wide book %}
+        {% book_wide book %}
 
-{% work_list book_children %}
-
-
-<h2 class="main-last"><span class="mono">{% trans "See also" %}:</span></h2>
-{% related_books book %}
-
+        {% work_list book_children %}
+    </div>
+    <div class="recommended">
+        <h2>inne książki</h2>
+        {% related_books book %}
+    </div>
 {% endblock %}

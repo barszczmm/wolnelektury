@@ -117,7 +117,7 @@ class Book(models.Model):
         if self.has_media(type_):
             if type_ in Book.formats:
                 return getattr(self, "%s_file" % type_)
-            else:                                             
+            else:
                 return self.media.filter(type=type_)
         else:
             return None
@@ -129,7 +129,7 @@ class Book(models.Model):
     def get_ogg(self):
         return self.get_media("ogg")
     def get_daisy(self):
-        return self.get_media("daisy")                       
+        return self.get_media("daisy")
 
     def reset_short_html(self):
         if self.id is None:
@@ -303,7 +303,7 @@ class Book(models.Model):
         tasks.fix_tree_tags.delay(book)
         if 'cover' not in dont_build:
             book.cover.build_delay()
-        
+
         # No saves behind this point.
 
         if has_own_text:
@@ -487,8 +487,10 @@ class Book(models.Model):
     def pretty_title(self, html_links=False):
         book = self
         rel_info = book.related_info()
-        names = [(name, Tag.create_url('author', slug))
-                    for name, slug in rel_info['tags']['author']]
+        names = []
+        if 'author' in rel_info['tags']:
+            names = [(name, Tag.create_url('author', slug))
+                        for name, slug in rel_info['tags']['author']]
         if 'parents' in rel_info:
             books = [(name, Book.create_url(slug))
                         for name, slug in rel_info['parents']]
@@ -533,7 +535,7 @@ class Book(models.Model):
                 'title', 'parent', 'slug')
         if filter:
             books = books.filter(filter).distinct()
-            
+
             book_ids = set(b['pk'] for b in books.values("pk").iterator())
             for book in books.iterator():
                 parent = book.parent_id

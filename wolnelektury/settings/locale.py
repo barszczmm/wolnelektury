@@ -18,13 +18,13 @@ gettext = lambda s: s
 
 LANGUAGES = tuple(sorted([
     ('pl', u'polski'),
-    ('de', u'Deutsch'),
-    ('en', u'English'),
-    ('lt', u'lietuvių'),
-    ('fr', u'français'),
-    ('ru', u'русский'),
-    ('es', u'español'),
-    ('uk', u'українська'),
+#    ('de', u'Deutsch'),
+#    ('en', u'English'),
+#    ('lt', u'lietuvių'),
+#    ('fr', u'français'),
+#    ('ru', u'русский'),
+#    ('es', u'español'),
+#    ('uk', u'українська'),
 #    ('jp', u'日本語'),
-    ('it', u'italiano'),
+#    ('it', u'italiano'),
 ], key=lambda x: x[0]))
