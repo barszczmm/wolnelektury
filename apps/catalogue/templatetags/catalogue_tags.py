@@ -387,7 +387,7 @@ def fragment_promo(arg=None):
 
 
 @register.inclusion_tag('catalogue/related_books.html')
-def related_books(book, limit=6, random=1):
+def related_books(book, limit=6, random=6):
     cache_key = "catalogue.related_books.%d.%d" % (book.id, limit - random)
     related = cache.get(cache_key)
     if related is None:
@@ -395,19 +395,19 @@ def related_books(book, limit=6, random=1):
             common_slug=book.common_slug).exclude(pk=book.pk)[:limit])
         limit -= len(related)
         if limit > random:
-            related += Book.tagged.related_to(book,
+            related += list(Book.tagged.related_to(book,
                     Book.objects.exclude(common_slug=book.common_slug),
-                    ignore_by_tag=book.book_tag())[:limit-random]
+                    ignore_by_tag=book.book_tag())[:limit-random])
+        if random:
+            random_books = Book.objects.exclude(
+                            pk__in=[b.pk for b in related] + [book.pk])
+            if random == 1:
+                count = random_books.count()
+                if count:
+                    related.append(random_books[randint(0, count - 1)])
+            else:
+                related += list(random_books.order_by('?')[:random])
         cache.set(cache_key, related, 1800)
-    if random:
-        random_books = Book.objects.exclude(
-                        pk__in=[b.pk for b in related] + [book.pk])
-        if random == 1:
-            count = random_books.count()
-            if count:
-                related.append(random_books[randint(0, count - 1)])
-        else:
-            related += list(random_books.order_by('?')[:random])
     return {
         'books': related,
     }
@@ -420,7 +420,7 @@ def recommended_books(limit=6, random=True):
         recommended = Book.objects.filter(recommended=True)
         if random:
             recommended = recommended.order_by('?')
-        recommended = recommended[:limit]
+        recommended = list(recommended[:limit])
         cache.set(cache_key, recommended, 1800)
     return {
         'books': recommended,
