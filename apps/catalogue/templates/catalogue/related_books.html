@@ -1,11 +1,12 @@
 {% load book_mini from catalogue_tags %}
+{% load cache %}
 
-{% spaceless %}
-{% for book in books %}
-    {% if forloop.counter == 6 %}
-        {% book_mini book 'last' %}
-    {% else %}
-        {% book_mini book %}
-    {% endif %}
-{% endfor %}
-{% endspaceless %}
+{% cache 1800 catalogue.related_books main_book.pk %}
+    {% for book in books %}
+        {% if forloop.counter == 6 %}
+            {% book_mini book 'last' %}
+        {% else %}
+            {% book_mini book %}
+        {% endif %}
+    {% endfor %}
+{% endcache %}
