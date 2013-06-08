@@ -70,6 +70,16 @@
                             {% endif %}
                         </p>
 
+                        <form id="search-area" action="{% url 'search' %}">
+                            <div id="search-field">
+                                <label for="search">{{ search_form.q.label }}</label>
+                                {{ search_form.q }}
+                            </div>
+                            <div id="search-button">
+                                <button type='submit'>{% trans "Search" %}</button>
+                            </div>
+                        </form>
+
                         <div class="menu">
                             <ul>
                                 <li><a href="/">Strona główna</a></li>
