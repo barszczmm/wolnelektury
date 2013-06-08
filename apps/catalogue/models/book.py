@@ -24,14 +24,20 @@ permanent_cache = get_cache('permanent')
 
 
 class Book(models.Model):
+
+    COVER_COLORS = (
+        ('black', _('black')),
+        ('gray', _('gray')),
+        ('orange', _('orange')),
+    )
+
     """Represents a book imported from WL-XML."""
     title         = models.CharField(_('title'), max_length=120)
     sort_key = models.CharField(_('sort key'), max_length=120, db_index=True, editable=False)
-    slug = models.SlugField(_('slug'), max_length=120, db_index=True,
-            unique=True)
+    slug = models.SlugField(_('slug'), max_length=120, db_index=True, unique=True)
     common_slug = models.SlugField(_('slug'), max_length=120, db_index=True)
     language = models.CharField(_('language code'), max_length=3, db_index=True,
-                    default=app_settings.DEFAULT_LANGUAGE)
+                                default=app_settings.DEFAULT_LANGUAGE)
     description   = models.TextField(_('description'), blank=True)
     created_at    = models.DateTimeField(_('creation date'), auto_now_add=True, db_index=True)
     changed_at    = models.DateTimeField(_('creation date'), auto_now=True, db_index=True)
@@ -41,13 +47,17 @@ class Book(models.Model):
     wiki_link     = models.CharField(blank=True, max_length=240)
     # files generated during publication
 
+    number_of_pages = models.PositiveSmallIntegerField(_('number of pages'), null=True, blank=True)
+    year_of_publication = models.PositiveSmallIntegerField(_('year of publication'), null=True, blank=True)
+
     cover = EbookField('cover', _('cover'),
-                upload_to=book_upload_path('jpg'), null=True, blank=True)
+                       upload_to=book_upload_path('jpg'), null=True, blank=True)
+    cover_color = models.CharField(_('cover color'), max_length=10, null=True, blank=True,
+                                   choices=COVER_COLORS)
     ebook_formats = constants.EBOOK_FORMATS
     formats = ebook_formats + ['html', 'xml']
 
-    parent = models.ForeignKey('self', blank=True, null=True,
-        related_name='children')
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='children')
 
     _related_info = jsonfield.JSONField(blank=True, null=True, editable=False)
 

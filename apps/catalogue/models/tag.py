@@ -18,12 +18,13 @@ TAG_CATEGORIES = (
     ('theme', _('theme')),
     ('set', _('set')),
     ('book', _('book')),
+    ('publisher', _('publisher')),
 )
 
 
 class Tag(TagBase):
     """A tag attachable to books and fragments (and possibly anything).
-    
+
     Used to represent searchable metadata (authors, epochs, genres, kinds),
     fragment themes (motifs) and some book hierarchy related kludges."""
     name = models.CharField(_('name'), max_length=50, db_index=True)
@@ -119,7 +120,7 @@ class Tag(TagBase):
                 else:
                     try:
                         real_tags.append(Tag.objects.exclude(category='book').get(slug=name))
-                        deprecated = True 
+                        deprecated = True
                     except Tag.MultipleObjectsReturned, e:
                         ambiguous_slugs.append(name)
 
