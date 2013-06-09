@@ -62,7 +62,8 @@ def catalogue(request):
             context_instance=RequestContext(request))
 
 def authors(request):
-    authors = models.Tag.objects.filter(category='author').exclude(book_count=0).order_by('name')
+    authors = models.Tag.objects.filter(category='author').exclude(book_count=0) \
+        .exclude(book_count=None).order_by('name')
     authors = list(authors)
     authors_by_letters = {}
     for author in authors:
