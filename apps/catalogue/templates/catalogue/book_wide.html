@@ -2,24 +2,60 @@
 {% load download_audio tag_list custom_pdf_link_li license_icon tag_url from catalogue_tags %}
 {% load cite_promo likes from social_tags %}
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/pl_PL/all.js#xfbml=1";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+</script>
+
 <div class="contentbox">
-    <div class="pos">
-        <div class="book {{ book.cover_color|default:"gray" }}">
-            <div class="cover">
-                <div class="title">
-                    {% if main_link %}<a href="{{ main_link }}">{% endif %}
-                    {{ book.title }}
-                    {% if main_link %}</a>{% endif %}
+    <div class="pos-and-social-wrapper">
+        <div class="pos">
+            <div class="book {{ book.cover_color|default:"gray" }}">
+                <div class="cover">
+                    <div class="title">
+                        {% if main_link %}<a href="{{ main_link }}">{% endif %}
+                        {{ book.title }}
+                        {% if main_link %}</a>{% endif %}
+                    </div>
+                    <div class="author">
+                        {% for name, slug in related.tags.author %}
+                            <a href="{% tag_url 'author' slug %}">{{ name }}</a>
+                            {% if not forloop.last %},{% endif %}
+                        {% endfor %}
+                        {% for title, slug in related.parents %},
+                            <a href="{% url 'book_detail' slug %}">{{ title }}</a>
+                        {% endfor %}
+                    </div>
                 </div>
-                <div class="author">
-                    {% for name, slug in related.tags.author %}
-                        <a href="{% tag_url 'author' slug %}">{{ name }}</a>
-                        {% if not forloop.last %},{% endif %}
-                    {% endfor %}
-                    {% for title, slug in related.parents %},
-                        <a href="{% url 'book_detail' slug %}">{{ title }}</a>
-                    {% endfor %}
-                </div>
+            </div>
+        </div>
+        <div class="social-buttons">
+            <div class="social-button facebook">
+                <div class="fb-like" data-send="false" data-layout="button_count" data-width="450" data-show-faces="true"></div>
+            </div>
+            <div class="social-button twitter">
+                <a href="https://twitter.com/share" class="twitter-share-button" data-lang="pl"></a>
+                <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+            </div>
+            <div class="social-button gplus">
+                <!-- Place this tag where you want the +1 button to render. -->
+                <div class="g-plusone" data-size="medium"></div>
+
+                <!-- Place this tag after the last +1 button tag. -->
+                <script type="text/javascript">
+                  window.___gcfg = {lang: 'pl'};
+
+                  (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                  })();
+                </script>
             </div>
         </div>
     </div>
