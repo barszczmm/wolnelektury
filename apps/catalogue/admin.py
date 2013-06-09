@@ -50,7 +50,7 @@ class BookAdmin(TaggableModelAdmin):
             self.prepopulated_fields = {}
         else:
             self.form = TaggableModelForm
-            self.fields = None
+            self.fields = ()
 
         return super(BookAdmin, self).change_view(request, object_id,
                                                   extra_context=extra_context)
