@@ -43,6 +43,7 @@
             {% if book.pdf_file %}
                 <a href="">Informacje o licencji</a>
                 <a href="{{ book.pdf_file.url }}">Pobierz książkę</a>
+                <a href="{% url "book_reader" book.slug %}" target="_blank">Czytaj online</a>
             {% endif %}
             {% if request.user.is_authenticated %}
                 <div class="shelf-actions {% if not request.user|likes:book %}not-{% endif %}on-shelf">

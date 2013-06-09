@@ -283,6 +283,14 @@ def player(request, slug):
     return render_to_response('catalogue/player.html', locals(),
         context_instance=RequestContext(request))
 
+def reader(request, slug):
+    book = get_object_or_404(models.Book, slug=slug)
+
+    if not book.pdf_file:
+        raise Http404
+
+    return render_to_response('catalogue/reader.html', locals(),
+        context_instance=RequestContext(request))
 
 def book_text(request, slug):
     book = get_object_or_404(models.Book, slug=slug)
