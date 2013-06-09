@@ -83,6 +83,17 @@
                 </div>
             {% endif %}
 
+            {% if not theme_is_set %}
+                <div id="books-list">
+                    {% if object_list %}
+                        {% work_list object_list %}
+                    {% else %}
+                        {% trans "Sorry! Search cirteria did not match any resources." %}
+                        {% include "info/join_us.html" %}
+                    {% endif %}
+                </div>
+            {% endif %}
+
         </div>
 
         <div class="right-column">
@@ -106,18 +117,7 @@
             {% endif %}
         </div>
 
-        <div class="clearboth"></div>
-
-        {% if not theme_is_set %}
-            <div id="books-list">
-                {% if object_list %}
-                    {% work_list object_list %}
-                {% else %}
-                    {% trans "Sorry! Search cirteria did not match any resources." %}
-                    {% include "info/join_us.html" %}
-                {% endif %}
-            </div>
-        {% endif %}
+        <div class="clear"></div>
 
     {% endwith %}
 {% endblock %}
