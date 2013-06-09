@@ -36,6 +36,12 @@ class BookAdmin(TaggableModelAdmin):
 
     inlines = [MediaInline]
 
+    def add_view(self, request, form_url='', extra_context=None):
+        self.exclude = ('cover', 'extra_info', 'parent_number',
+                        'html_file', 'epub_file', 'mobi_file', 'txt_file', 'fb2_file')
+        return super(BookAdmin, self).add_view(request, form_url=form_url,
+                                               extra_context=extra_context)
+
     def change_view(self, request, object_id, extra_context=None):
         if not request.GET.has_key('advanced'):
             self.form = forms.ModelForm
@@ -45,11 +51,9 @@ class BookAdmin(TaggableModelAdmin):
         else:
             self.form = TaggableModelForm
             self.fields = None
-            self.readonly_fields = ()
-            self.exclude = ('cover', 'extra_info', 'parent_number',
-                            'html_file', 'epub_file', 'mobi_file', 'txt_file', 'fb2_file')
+
         return super(BookAdmin, self).change_view(request, object_id,
-            extra_context=extra_context)
+                                                  extra_context=extra_context)
 
 
 class FragmentAdmin(TaggableModelAdmin):
