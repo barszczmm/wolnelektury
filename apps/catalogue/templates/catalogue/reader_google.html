@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block titleextra %}{{ book.title }}{% endblock %}
+{% block ogtitle %}{{ book.title }}{% endblock %}
+
+{% block body %}
+    <div class="start">
+        <h1>{{ book.title }}</h1>
+        <iframe src="http://docs.google.com/viewer?url=http%3A%2F%2F{{ domain }}{{ book.pdf_file.url }}&embedded=true" width="765" height="800" style="border: none;"></iframe>
+    </div>
+{% endblock %}

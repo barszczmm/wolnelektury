@@ -19,6 +19,7 @@ from django.utils.http import urlquote_plus
 from django.utils import translation
 from django.utils.translation import ugettext as _, ugettext_lazy
 from django.views.decorators.vary import vary_on_headers
+from django.contrib.sites.models import Site
 
 from ajaxable.utils import JSONResponse, AjaxableFormView
 from catalogue import models
@@ -286,11 +287,12 @@ def player(request, slug):
 
 def reader(request, slug):
     book = get_object_or_404(models.Book, slug=slug)
+    domain = Site.objects.get_current().domain
 
     if not book.pdf_file:
         raise Http404
 
-    return render_to_response('catalogue/reader.html', locals(),
+    return render_to_response('catalogue/reader_google.html', locals(),
         context_instance=RequestContext(request))
 
 def book_text(request, slug):
