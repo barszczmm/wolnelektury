@@ -52,6 +52,7 @@ class Tag(TagBase):
         'gatunek': 'genre',
         'motyw': 'theme',
         'polka': 'set',
+        'wydawca': 'publisher',
     }
     categories_dict = dict((item[::-1] for item in categories_rev.iteritems()))
 

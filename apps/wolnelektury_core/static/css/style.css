@@ -108,6 +108,8 @@ div.contentbox div.book div.cover{height:225px;width:156px;position:relative;pad
 div.contentbox div.author{position:absolute;bottom:25px;left:10px;font-size:11px;text-transform:uppercase;font-weight:700;padding:0 0 8px 0;}
 div.contentbox div.cover div.title{font-size:15px;text-transform:uppercase;font-weight:700;padding:5px 0 0 0;}
 div.posinfo div.actions{float:left;width:200px;}
+div.posinfo div.actions div.shelf-actions.not-on-shelf a.remove {display:none;}
+div.posinfo div.actions div.shelf-actions.on-shelf a.add {display:none;}
 div.start div.info{width:222px;float:right;padding:10px 20px;background:rgb(237,237,237);margin:20px 0 0 0;}
 div.start div.info p{font-size:13px;}
 div.posinfo{float:left;width:200px;}

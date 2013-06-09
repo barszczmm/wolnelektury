@@ -45,11 +45,10 @@
                 <a href="{{ book.pdf_file.url }}">Pobierz książkę</a>
             {% endif %}
             {% if request.user.is_authenticated %}
-                {% if not request.user|likes:book %}
-                    <a href="{% url "social_like_book" book.slug %}" class="ajaxable" data-ajax-method="post">Dodaj do swojej półki</a>
-                {% else %}
-                    <a href="{% url "social_unlike_book" book.slug %}" class="ajaxable" data-ajax-method="post">Usuń ze swojej półki</a>
-                {% endif %}
+                <div class="shelf-actions {% if not request.user|likes:book %}not-{% endif %}on-shelf">
+                    <a href="{% url "social_like_book" book.slug %}" class="ajaxable add" data-ajax-method="post">Dodaj do swojej półki</a>
+                    <a href="{% url "social_unlike_book" book.slug %}" class="ajaxable remove" data-ajax-method="post">Usuń ze swojej półki</a>
+                </div>
             {% endif %}
         </div>
     </div>

@@ -134,6 +134,8 @@
 
         </div><!-- #inner -->
 
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{% static "js/main.js" %}"></script>
         <script type="text/javascript">
             var LANGUAGE_CODE = "{{ LANGUAGE_CODE }}";
             var STATIC_URL = "{{ STATIC_URL }}";
@@ -141,8 +143,7 @@
 
         {{ piwik_tag|safe }}
 
-        {% block extrabody %}
-        {% endblock %}
+        {% block extrabody %}{% endblock %}
 
     </body>
 </html>
