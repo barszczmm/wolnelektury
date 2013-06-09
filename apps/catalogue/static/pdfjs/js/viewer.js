@@ -18,7 +18,6 @@
 
 'use strict';
 
-var DEFAULT_URL = 'compressed.tracemonkey-pldi-09.pdf';
 var DEFAULT_SCALE = 'auto';
 var DEFAULT_SCALE_DELTA = 1.1;
 var UNKNOWN_SCALE = 0;
@@ -44,8 +43,6 @@ var FindStates = {
   FIND_WRAPPED: 2,
   FIND_PENDING: 3
 };
-
-  PDFJS.workerSrc = '../build/pdf.js';
 
 var mozL10n = document.mozL10n || document.webL10n;
 
@@ -3279,9 +3276,8 @@ var TextLayerBuilder = function textLayerBuilder(textLayerDiv, pageIdx) {
 
 document.addEventListener('DOMContentLoaded', function webViewerLoad(evt) {
   PDFView.initialize();
-  var params = PDFView.parseQueryString(document.location.search.substring(1));
 
-  var file = params.file || DEFAULT_URL;
+  var file = DEFAULT_URL;
 
   if (!window.File || !window.FileReader || !window.FileList || !window.Blob) {
     document.getElementById('openFile').setAttribute('hidden', 'true');
