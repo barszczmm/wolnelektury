@@ -116,6 +116,6 @@ div.posinfo{float:left;width:200px;}
 div.posinfo div.postitle{font-size:19px;font-weight:700;}
 div.posinfo div.posauth{font-size:13px;margin:20px 0 0 0;}
 
-div#reader div.pos{float:none;}
+div#reader div.pos{float:none;margin-right:0;}
 div#reader div.book{float:none;width:auto;height:auto;}
 div#reader div.cover{float:none;width:auto;height:auto;padding:15px;}

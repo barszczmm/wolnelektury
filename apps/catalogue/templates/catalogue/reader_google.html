@@ -10,10 +10,24 @@
             <div class="pos">
                 <div class="book {{ book.cover_color }}">
                     <div class="cover">
-                        <iframe src="http://docs.google.com/viewer?url=http%3A%2F%2F{{ domain }}{{ book.pdf_file.url }}&embedded=true" width="685" height="800" style="border: none;"></iframe>
+                        <iframe src="http://docs.google.com/viewer?url=http%3A%2F%2F{{ domain }}{{ book.pdf_file.url }}&embedded=true" width="705" height="800" style="border: none;"></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block extrabody %}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            function onResize() {
+                $('#reader iframe').attr('height', $(window).height() - 60);
+                $('html, body').animate({
+                     scrollTop: $("#reader").offset().top
+                 }, 1000);
+            }
+            $(window).resize(onResize).resize();
+        });
+    </script>
 {% endblock %}
