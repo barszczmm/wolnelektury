@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.conf import settings
 from django.contrib import admin
 from django.views.generic import RedirectView
@@ -72,7 +72,7 @@ urlpatterns += patterns('',
     url(r'^wolontariat/$', RedirectView.as_view(
         url='/info/mozesz-nam-pomoc/')),
 )
-    
+
 
 if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += patterns('',

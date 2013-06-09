@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
-from piston.authentication import OAuthAuthentication, oauth_access_token 
+from piston.authentication import OAuthAuthentication, oauth_access_token
 from piston.resource import Resource
 
 from api import handlers
