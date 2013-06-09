@@ -51,6 +51,8 @@ class BookAdmin(TaggableModelAdmin):
         else:
             self.form = TaggableModelForm
             self.fields = ()
+            self.exclude = ('cover', 'extra_info', 'parent_number',
+                            'html_file', 'epub_file', 'mobi_file', 'txt_file', 'fb2_file')
 
         return super(BookAdmin, self).change_view(request, object_id,
                                                   extra_context=extra_context)
