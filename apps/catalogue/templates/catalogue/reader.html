@@ -24,21 +24,21 @@ limitations under the License.
 
     <link rel="stylesheet" href="{% static "pdfjs/css/viewer.css" %}"/>
 
-    <script type="text/javascript" src="{% static "pdfjs/js/compatibility.js" %}"></script>
+    <script type="text/javascript" src="{% static "pdfjs/js/compatibility.min.js" %}"></script>
 
 
 
     <!-- This snippet is used in production, see Makefile -->
     <link rel="resource" type="application/l10n" href="{% static "pdfjs/locale/locale.properties" %}"/>
-    <script type="text/javascript" src="{% static "pdfjs/js/l10n.js" %}"></script>
-    <script type="text/javascript" src="{% static "pdfjs/js/pdf.js" %}"></script>
+    <script type="text/javascript" src="{% static "pdfjs/js/l10n.min.js" %}"></script>
+    <script type="text/javascript" src="{% static "pdfjs/js/pdf.min.js" %}"></script>
 
-    <script type="text/javascript" src="{% static "pdfjs/js/debugger.js" %}"></script>
+    <!--<script type="text/javascript" src="{% static "pdfjs/js/debugger.min.js" %}"></script>-->
     <script type="text/javascript">
       var DEFAULT_URL = '{{ book.pdf_file.url }}';
-      PDFJS.workerSrc = '{% static "pdfjs/js/pdf.js" %}';
+      PDFJS.workerSrc = '{% static "pdfjs/js/pdf.min.js" %}';
     </script>
-    <script type="text/javascript" src="{% static "pdfjs/js/viewer.js" %}"></script>
+    <script type="text/javascript" src="{% static "pdfjs/js/viewer.min.js" %}"></script>
   </head>
 
   <body tabindex="1">
