@@ -1,5 +1,12 @@
 $(document).ready(function() {
 
+    function getParameterByName(name) {
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+    }
+
     function getCookie(name) {
         var cookieValue = null;
         if (document.cookie && document.cookie != '') {
@@ -29,6 +36,8 @@ $(document).ready(function() {
             }
         }
     });
+
+
 
     $('.shelf-actions a.ajaxable').click(
         function(e) {
@@ -68,5 +77,64 @@ $(document).ready(function() {
             $link.parent('.screen').html('<iframe width="621" height="388" src="http://www.youtube.com/embed/' + vid_id + '?rel=0" frameborder="0" allowfullscreen ></iframe>');
         }
     );
+
+    var $contact_form = $('.contactform form');
+    if ($contact_form.length) {
+        var person = getParameterByName('person'),
+            mail = getParameterByName('mail'),
+            phone = getParameterByName('phone'),
+            $person = $contact_form.find('input[name="person"]'),
+            $mail = $contact_form.find('input[name="mail"]'),
+            $phone = $contact_form.find('input[name="phone"]');
+
+        if (person && !$person.val()) {
+            $person.val(person);
+        }
+        if (mail && !$mail.val()) {
+            $mail.val(mail);
+        }
+        if (phone && !$phone.val()) {
+            $phone.val(phone);
+        }
+
+        $contact_form.submit(
+            function(e) {
+                e.preventDefault();
+                $.ajax(
+                    {
+                        url: $contact_form.attr('action'),
+                        type: $contact_form.attr('method'),
+                        data: $contact_form.serialize(),
+                        dataType: 'json',
+                        success: function(data) {
+                            var errors = '',
+                                key;
+
+                            $contact_form.find('.errors').remove();
+                            $contact_form.find('.with-error').removeClass('with-error');
+
+                            if (!data.success) {
+                                for (key in data.errors) {
+                                    errors = '<ul class="errors">';
+                                    for (var i = 0; i < data.errors[key].length; i++) {
+                                        errors += '<li>' + data.errors[key][i] + '</li>';
+                                    }
+                                    errors += '</ul>';
+                                    $contact_form.find('input[name="' + key + '"]').addClass('with-error').before(errors);
+                                    $contact_form.find('textarea[name="' + key + '"]').addClass('with-error').before(errors);
+                                }
+                            } else {
+                                $contact_form.get(0).reset();
+                                alert('Wiadomość została wysłana. Dziękujemy.');
+                            }
+                        },
+                        error: function() {
+                            alert('Niestety wystąpił błąd. Przeładuj stronę i spróbuj ponownie.');
+                        }
+                    }
+                );
+            }
+        );
+    }
 
 });

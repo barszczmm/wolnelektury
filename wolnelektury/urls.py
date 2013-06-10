@@ -57,23 +57,6 @@ urlpatterns += patterns('',
     url(r'^i18n/', include('django.conf.urls.i18n')),
 )
 
-urlpatterns += patterns('',
-    # old static pages - redirected
-    url(r'^1procent/$', RedirectView.as_view(
-        url='http://nowoczesnapolska.org.pl/wesprzyj_nas/')),
-    url(r'^epub/$', RedirectView.as_view(
-        url='/katalog/lektury/')),
-    url(r'^mozesz-nam-pomoc/$', RedirectView.as_view(
-        url='/info/mozesz-nam-pomoc')),
-    url(r'^o-projekcie/$', RedirectView.as_view(
-        url='/info/o-projekcie')),
-    url(r'^widget/$', RedirectView.as_view(
-        url='/info/widget')),
-    url(r'^wolontariat/$', RedirectView.as_view(
-        url='/info/mozesz-nam-pomoc/')),
-)
-
-
 if 'rosetta' in settings.INSTALLED_APPS:
     urlpatterns += patterns('',
         url(r'^rosetta/', include('rosetta.urls')),

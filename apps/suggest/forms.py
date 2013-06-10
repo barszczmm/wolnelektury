@@ -49,7 +49,7 @@ Thank you for your comment on WolneLektury.pl.
 The suggestion has been referred to the project coordinator.""") +
 u"""
 
--- 
+--
 """ + ugettext(u'''Message sent automatically. Please do not reply.'''),
                     'no-reply@wolnelektury.pl', [contact], fail_silently=True)
 
@@ -104,6 +104,55 @@ Thank you for your comment on WolneLektury.pl.
 The suggestion has been referred to the project coordinator.""") +
 u"""
 
--- 
+--
 """ + ugettext(u'''Message sent automatically. Please do not reply.'''),
                     'no-reply@wolnelektury.pl', [contact], fail_silently=True)
+
+
+class ContactForm(forms.Form):
+
+    # person
+    person = forms.CharField(label=_('first and last name'), max_length=120, required=True)
+    mail = forms.EmailField(label=_('e-mail address'), max_length=120, required=True)
+    phone = forms.CharField(label=_('telephone number'), max_length=20, required=True)
+
+    # publication
+    title = forms.CharField(label=_('title'), required=True)
+    year = forms.CharField(label=_('publication year'), max_length=4, required=True)
+    publisher = forms.CharField(label=_('publisher'), required=True)
+    ip = forms.CharField(label=_('legal status'), required=True)
+    agreement = forms.CharField(label=_('contract'), widget=forms.Textarea, required=True)
+
+    def save(self, request):
+        person = self.cleaned_data['person']
+        mail = self.cleaned_data['mail']
+        phone = self.cleaned_data['phone']
+
+        title = self.cleaned_data['title']
+        year = self.cleaned_data['year']
+        publisher = self.cleaned_data['publisher']
+        ip = self.cleaned_data['ip']
+        agreement = self.cleaned_data['agreement']
+
+        mail_managers(u'Kontakt ze strony Biblioteka Otwartej Nauki', u'''\
+DANE KONTAKTOWE
+Imię i nazwisko: %(person)s
+Adres e-mail: %(mail)s
+Numer telefonu: %(phone)s
+
+PUBLIKACJE:
+Tytuł: %(title)s
+Rok wydania: %(year)s
+Wydawnictwo: %(publisher)s
+Stan prawny: %(ip)s
+Umowa wydawnicza: %(agreement)s
+''' % {
+            'person': person,
+            'mail': mail,
+            'phone': phone,
+            'title': title,
+            'year': year,
+            'publisher': publisher,
+            'ip': ip,
+            'agreement': agreement,
+            }, fail_silently=True)

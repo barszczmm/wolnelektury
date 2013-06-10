@@ -8,5 +8,6 @@ from suggest import views
 urlpatterns = patterns('',
     url(r'^$', views.SuggestionFormView(), name='suggest'),
     url(r'^plan/$', views.PublishingSuggestionFormView(), name='suggest_publishing'),
+    url(r'^kontakt/$', views.ContactFormView(), name='suggest_contact'),
 )
 

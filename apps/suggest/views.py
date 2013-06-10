@@ -22,3 +22,8 @@ class SuggestionFormView(AjaxableFormView):
     submit = _('Send report')
     success_message = _('Report was sent successfully.')
     honeypot = True
+
+
+class ContactFormView(AjaxableFormView):
+    form_class = forms.ContactForm
+    honeypot = False
