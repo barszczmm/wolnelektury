@@ -97,9 +97,12 @@ $(document).ready(function() {
             $phone.val(phone);
         }
 
-        $contact_form.submit(
+        $(document).on('submit', '.contactform form',
             function(e) {
+                var $contact_form = $(this);
+
                 e.preventDefault();
+
                 $.ajax(
                     {
                         url: $contact_form.attr('action'),
@@ -110,12 +113,12 @@ $(document).ready(function() {
                             var errors = '',
                                 key;
 
-                            $contact_form.find('.errors').remove();
+                            $contact_form.find('.errorlist').remove();
                             $contact_form.find('.with-error').removeClass('with-error');
 
                             if (!data.success) {
                                 for (key in data.errors) {
-                                    errors = '<ul class="errors">';
+                                    errors = '<ul class="errorlist">';
                                     for (var i = 0; i < data.errors[key].length; i++) {
                                         errors += '<li>' + data.errors[key][i] + '</li>';
                                     }
@@ -127,6 +130,36 @@ $(document).ready(function() {
                                 $contact_form.get(0).reset();
                                 alert('Wiadomość została wysłana. Dziękujemy.');
                             }
+                        },
+                        error: function() {
+                            alert('Niestety wystąpił błąd. Przeładuj stronę i spróbuj ponownie.');
+                        }
+                    }
+                );
+            }
+        );
+    }
+
+    var $comment_form = $('.commentform form');
+    if ($comment_form.length) {
+        $(document).on('submit', '.commentform form',
+            function(e) {
+                var $comment_form = $(this);
+
+                e.preventDefault();
+
+                $.ajax(
+                    {
+                        url: $comment_form.attr('action'),
+                        type: $comment_form.attr('method'),
+                        data: $comment_form.serialize(),
+                        dataType: 'html',
+                        success: function(data) {
+                            if (data.indexOf('<p class="success">') == 0) {
+                                $comment_form.get(0).reset();
+                                document.location.reload();
+                            }
+                            $comment_form.replaceWith(data);
                         },
                         error: function() {
                             alert('Niestety wystąpił błąd. Przeładuj stronę i spróbuj ponownie.');

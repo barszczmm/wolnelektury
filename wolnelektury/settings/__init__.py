@@ -10,6 +10,8 @@ from .contrib import *
 from .custom import *
 from .locale import *
 from .static import *
+from .admin import *
+from .comments import *
 
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -65,10 +67,14 @@ INSTALLED_APPS_OUR = [
     'waiter',
     'search',
     'oai',
+    'comments_ext',
     ]
 
 INSTALLED_APPS_CONTRIB = [
     # external
+    #'wpadmin',
+    #'wpadmin.menu',
+    #'wpadmin.dashboard',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -76,6 +82,7 @@ INSTALLED_APPS_CONTRIB = [
     'django.contrib.admin',
     'django.contrib.admindocs',
     'django.contrib.staticfiles',
+    'django.contrib.comments',
     'pagination',
     'pipeline',
     'piston',

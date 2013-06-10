@@ -1,0 +1,22 @@
+{% load comments %}
+<form action="{% comment_form_target %}" method="post">
+    {% csrf_token %}
+    <div style="display:none;">
+        <label for="id_honeypot">Jeżeli wpiszesz cokolwiek w to pole, Twój komentarz zostanie uznany za spam</label> <input type="text" name="honeypot" id="id_honeypot">
+        {{ form.content_type }}
+        {{ form.object_pk }}
+        {{ form.timestamp }}
+        {{ form.security_hash }}
+    </div>
+    {% if form.name.errors %}{{ form.name.errors }}{% endif %}
+    <input class="{% if form.name.errors %}with-error{% endif %}" type="text" name="name" placeholder="Imię i nazwisko" maxlength="50" id="id_name" value="{% if form.name.value %}{{ form.name.value }}{% elif request.user.is_authenticated %}{{ request.user.username }}{% endif %}" />
+    {% if form.email.errors %}{{ form.email.errors }}{% endif %}
+    <input class="{% if form.email.errors %}with-error{% endif %}" type="text" name="email" placeholder="Adres e-mail" id="id_email" value="{% if form.email.value %}{{ form.email.value }}{% elif request.user.is_authenticated %}{{ request.user.email }}{% endif %}" />
+    {% if request.user.is_authenticated %}
+        <label for="id_is_private"><input type="checkbox" name="is_private" id="id_is_private" {% if form.is_private.value %}checked="checked"{% endif %} /> Zaznacz aby oznaczyć komentarz jako prywatny <br />(tylko użytkownicy zalogowani będą mogli go przeczytać).</label>
+    {% endif %}
+    {% if form.comment.errors %}{{ form.comment.errors }}{% endif %}
+    <textarea class="{% if form.comment.errors %}with-error{% endif %}" rows="10" name="comment" placeholder="Komentarz" id="id_comment" cols="40">{% if form.comment.value %}{{ form.comment.value }}{% endif %}</textarea>
+    <input type="submit" name="submit" value="Wyślij">
+    <div class="clear"></div>
+</form>

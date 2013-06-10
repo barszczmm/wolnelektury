@@ -35,6 +35,7 @@ urlpatterns += patterns('',
     url(r'^ludzie/', include('social.urls')),
     url(r'^uzytkownik/', include('allauth.urls')),
     url(r'^czekaj/', include('waiter.urls')),
+    url(r'^komentarze/', include('django.contrib.comments.urls')),
 
     # Admin panel
     url(r'^admin/catalogue/book/import$', 'catalogue.views.import_book', name='import_book'),

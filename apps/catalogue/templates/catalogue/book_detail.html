@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load cache i18n %}
+{% load cache i18n comments %}
 {% load thumbnail %}
 {% load common_tags catalogue_tags pagination_tags %}
 
@@ -17,6 +17,20 @@
         {% book_wide book %}
 
         {% work_list book_children %}
+
+        <div class="comments">
+            <h2>komentarze</h2>
+            <div class="commentlist">
+                {% render_comment_list for book %}
+            </div>
+            <div class="commentform">
+                <div class="box">
+                    <h3>dodaj komentarz</h3>
+                    {% render_comment_form for book %}
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
     </div>
     <div class="recommended">
         <h2>inne książki</h2>
