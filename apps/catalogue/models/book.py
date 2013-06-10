@@ -45,8 +45,8 @@ class Book(models.Model):
     description   = models.TextField(_('description'), blank=True)
     created_at    = models.DateTimeField(_('creation date'), auto_now_add=True, db_index=True)
     changed_at    = models.DateTimeField(_('creation date'), auto_now=True, db_index=True)
-    parent_number = models.IntegerField(_('parent number'), default=0)
-    extra_info    = jsonfield.JSONField(_('extra information'), default='{}')
+    parent_number = models.IntegerField(_('parent number'), default=0, editable=False)
+    extra_info    = jsonfield.JSONField(_('extra information'), default='{}', editable=False)
     gazeta_link   = models.CharField(blank=True, max_length=240)
     wiki_link     = models.CharField(blank=True, max_length=240)
     # files generated during publication
@@ -86,7 +86,7 @@ class Book(models.Model):
     cover = FileSelectOrUpload(_('cover'),
                                upload_to='book/jpg',
                                path=settings.MEDIA_ROOT + 'book/jpg', match='.*\.jpg$',
-                               null=True, blank=True)
+                               null=True, blank=True, editable=False)
     cover_color = models.CharField(_('cover color'), max_length=10, null=True, blank=True,
                                    choices=COVER_COLORS)
     recommended = models.BooleanField(_('recommended'), default=False)

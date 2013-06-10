@@ -72,9 +72,9 @@ INSTALLED_APPS_OUR = [
 
 INSTALLED_APPS_CONTRIB = [
     # external
-    #'wpadmin',
-    #'wpadmin.menu',
-    #'wpadmin.dashboard',
+    'wpadmin',
+    'wpadmin.menu',
+    'wpadmin.dashboard',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
