@@ -19,6 +19,7 @@ TAG_CATEGORIES = (
     ('set', _('set')),
     ('book', _('book')),
     ('publisher', _('publisher')),
+    ('editor', _('editor')),
 )
 
 
@@ -53,6 +54,7 @@ class Tag(TagBase):
         'motyw': 'theme',
         'polka': 'set',
         'wydawca': 'publisher',
+        'redaktor': 'editor',
     }
     categories_dict = dict((item[::-1] for item in categories_rev.iteritems()))
 

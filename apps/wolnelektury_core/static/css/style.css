@@ -40,6 +40,7 @@ div.screen a{position:absolute;display:block;height:86px;width:86px;left:50%;top
 div.left div.screen a{background:url('../img/play_r.png') no-repeat center center;}
 div.right div.screen a{background:url('../img/play_l.png') no-repeat center center;}
 div.start div.book{width:108px;height:142px;padding:4px;float:left;border:1px solid rgb(204,204,204);}
+div.pos:hover div.book{border:1px solid rgb(255,144,0);}
 div.pub div.book,div.recommended div.book{width:108px;height:142px;padding:4px;float:left;border:1px solid rgb(204,204,204);}
 div.left div.book{margin-left:15px;}
 div.right div.book{margin-right:15px;}
@@ -48,14 +49,22 @@ div.gray div.cover{background:rgb(230,230,230);}
 div.orange div.cover{background:rgb(255,144,0);}
 div.black div.cover{background:rgb(26,26,26);}
 div.cover div.title{font-size:9px;text-transform:uppercase;font-weight:700;padding:5px 0 0 0;}
+div.title a{text-decoration:none;}
 div.author{position:absolute;bottom:15px;left:5px;font-size:7px;text-transform:uppercase;font-weight:700;padding:0 0 8px 0;}
+div.gray div.title a{color:rgb(0,0,0);}
+div.orange div.title a{color:rgb(255,255,255);}
+div.black div.title a{color:rgb(255,255,255);}
 div.gray div.title{color:rgb(0,0,0);}
 div.orange div.title{color:rgb(255,255,255);}
-div.black div.title{color:rgb(255,255,255);}
+div.black div.title {color:rgb(255,255,255);}
 div.gray div.author{color:rgb(255,144,0);background:url('../img/covbottom_black.png') no-repeat bottom left;}
 div.orange div.author{color:rgb(0,0,0);background:url('../img/covbottom_white.png') no-repeat bottom left;}
 div.black div.author{color:rgb(255,144,0);background:url('../img/covbottom_white.png') no-repeat bottom left;}
-div.pub div.quote{width:252px;position:absolute;}
+div.gray div.author a{color:rgb(255,144,0);}
+div.orange div.author a{color:rgb(0,0,0);}
+div.black div.author a{color:rgb(255,144,0);}
+div.author a{text-decoration:none;}
+div.pub div.quote{width:272px;position:absolute;}
 div.left div.quote{left:656px;bottom:35px;}
 div.right div.quote{left:20px;bottom:35px;}
 div.quote p{margin:0;font-size:24px;font-weight:700;line-height:28px;}
@@ -133,9 +142,24 @@ div.start div.info p{font-size:13px;}
 div.posinfo{float:left;width:200px;}
 div.posinfo div.postitle{font-size:19px;font-weight:700;}
 div.posinfo div.posauth{font-size:13px;margin:20px 0 0 0;}
+div.posinfo div.posauth a{font-size:13px;margin:20px 0 0 0;color:rgb(0,0,0);text-decoration:none;}
 
 div#reader div.pos{float:none;margin-right:0;}
 div#reader div.book{float:none;width:auto;height:auto;}
 div#reader div.cover{float:none;width:auto;height:auto;padding:15px;}
 
 form ul.errorlist {list-style-type:none;margin:0;padding:0;font-size:12px;color:red;}
+div.logo{float:left;}
+p#user-info{float:right;font-size:10px;text-transform:uppercase;}
+p#user-info a{color:rgb(0,0,0);text-decoration:none;paddding:0 5px;text-transform:uppercase;font-size:10px;}
+p#user-info a:hover{color:rgb(255,147,0);}
+form#search-area{clear:right;float:right;}
+form#search-area label{display:none;}
+form#search-area input{padding:6px 10px;width:300px;}
+form#search-area button{background:none;border:0;width:75px;height:26px;font-family: 'Enriqueta', serif;color:rgb(0,0,0);border:0;border-bottom:1px solid rgb(0,0,0);background:url('../img/mini_arrow.png') no-repeat center right;text-transform: uppercase;font-size:12px;text-align:left;margin:0 0 0 10px;padding:0;}
+div#search-field{float:left;}
+div#search-button{float:left;}
+div#footer li a:hover{color:rgb(0,0,0);}
+
+div.pos{position:relative;}
+div.pos a.booklink{text-indent:-9999px;position:absolute;width:116px;height:150px;left:9px;top:9px;}

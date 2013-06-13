@@ -10,7 +10,7 @@
 
     {% with tags|last as last_tag %}
         <div class="start">
-            <h1>{% html_title_from_tags tags %}</h1>
+            <h1>{{ last_tag.name }}</h1>
 
             {% if last_tag.has_description %}
                 <div id="description" class="normal-text">

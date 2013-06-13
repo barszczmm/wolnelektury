@@ -93,6 +93,8 @@ class Book(models.Model):
     ebook_formats = ['pdf']
     formats = ebook_formats + ['xml']
 
+    parent_title = models.CharField(_('parent title'), max_length=120, null=True, blank=True)
+
     parent = models.ForeignKey('self', blank=True, null=True, related_name='children')
 
     _related_info = jsonfield.JSONField(blank=True, null=True, editable=False)
