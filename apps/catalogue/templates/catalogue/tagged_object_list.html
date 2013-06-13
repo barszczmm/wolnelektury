@@ -20,53 +20,6 @@
             {% endif %}
             <div class="clear"></div>
 
-            <div class="inline-tag-lists">
-                {% if categories.author %}
-                    <div>
-                        <div class="inline-header">{% trans "Authors" %}:</div>
-                        <div class="inline-body">
-                            {% inline_tag_list categories.author tags %}
-                        </div>
-                    </div>
-                {% endif %}
-                {% if categories.kind %}
-                    <div>
-                        <div class="inline-header">{% trans "Kinds" %}:</div>
-                        <div class="inline-body">
-                            {% inline_tag_list categories.kind tags %}
-                        </div>
-                    </div>
-                {% endif %}
-                {% if categories.genre %}
-                    <div>
-                        <div class="inline-header">{% trans "Genres" %}:</div>
-                        <div class="inline-body">
-                            {% inline_tag_list categories.genre tags %}
-                        </div>
-                    </div>
-                {% endif %}
-                {% if categories.epoch %}
-                    <div class="inline-tag-list">
-                        <div class="inline-header">{% trans "Epochs" %}:</div>
-                        <div class="inline-body">
-                            {% inline_tag_list categories.epoch tags %}
-                        </div>
-                    </div>
-                {% endif %}
-
-                {% if categories.theme %}
-                    <div class="hidden-box-wrapper">
-                        <p><a href="#" class="hidden-box-trigger theme-list-link mono">
-                        {% trans "Motifs and themes" %}</a></p>
-                        <div class="hidden-box">
-                            {% tag_list categories.theme tags %}
-                        </div>
-                    </div>
-                {% endif %}
-            </div>
-
-            <div class="clear"></div>
-
             {% if theme_is_set %}
                 <div class="see-also">
                     {% if last_tag.gazeta_link or last_tag.wiki_link %}
