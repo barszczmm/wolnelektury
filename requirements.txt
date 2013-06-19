@@ -46,7 +46,7 @@ django-celery>=2.5.1
 django-kombu
 
 # spell checking
-pyenchant
+#pyenchant
 
 # OAI-PMH
 pyoai
