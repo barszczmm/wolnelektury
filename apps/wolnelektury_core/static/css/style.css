@@ -11,36 +11,63 @@ root {
 }
 html,body{margin:0;padding:0;font-family: 'Enriqueta', serif;background:rgb(237,237,237);}
 .clear{clear:both;}
+a:hover {color:rgb(255,144,0) !important;}
+div.contactform a{color:rgb(255,144,0);text-decoration:none;}
+h1 a{text-decoration:none;color:rgb(0,0,0);}
 div#wrapper{background:rgb(255,255,255);margin:0 auto;width:1080px;-webkit-box-shadow:0px 0px 15px rgba(50, 50, 50, 1);-moz-box-shadow:0px 0px 15px rgba(50, 50, 50, 1);box-shadow:0px 0px 15px rgba(50, 50, 50, 1);}
 div#inner{width:960px;margin:0 auto;padding:30px 0 60px 0;}
 div.menu{border-bottom:6px solid rgb(0,0,0);padding:25px 0 0 195px;}
 div.menu ul, div.menu ul li{list-style:none;margin:0;padding:0;}
 div.menu ul li{float:left;}
+h5 a{text-decoration:none;color:rgb(255,144,0);}
 div.menu ul li a{display:block;font-size:12px;text-transform:uppercase;text-decoration:none;color: rgb(0,0,0);padding:15px 45px 15px 0;}
 div.menu ul li:last-child a{padding:15px 0 15px 0;}
+div.menu ul li.active a{font-weight:700;padding:15px 41px 15px 10px;background:url('../img/arrow_menu.png') no-repeat center left;margin:0 0 0 -12px;}
+div.menu ul li.active:last-child a{padding:15px 0 15px 10px;margin:0 0 0 -11px;}
 div.start{border-bottom:1px solid rgb(204,204,204);padding:28px 0 45px 195px;margin: 0 0 30px 0;}
 div.start h1{margin:0;padding:0 0 12px 0;font-size:50px;border-bottom:1px solid rgb(204,204,204);}
 div.start h3{background:url('../img/arrow.png') no-repeat bottom left;font-size:24px;padding:0 0 12px 0;font-weight:700;color:rgb(255,144,0);margin:0;}
 div.start div.step{width:182px;float:left;margin:0 12px 0 0;padding:7px 0;height:178px;border-bottom:1px solid rgb(204,204,204);}
 div.start div.last{padding:7px 0;margin:0;}
 div.step p{color:rgb(255,144,0);font-size:13px;line-height:18px;margin:0;padding:8px 0 0 0;}
+div.pos-and-social-wrapper div.pos a.booklink {text-indent: -9999px;position: absolute;width: 176px;height: 245px;left: 0;top: 0;}
+div.logotyp{padding:20px 0 0 0;}
+[placeholder]{color:rgb(179,179,179);}
+[placeholder]:focus::-webkit-input-placeholder {color: transparent;}
+input:focus, textarea:focus {color:rgb(0,0,0);}
+p.source{margin:20px 0 0 0;width:400px;}
+p.source a{color:rgb(255,144,0);text-decoration:none;}
 div.mform{float:right;width:570px;padding:19px 0 0 0;}
 div.mform div.box{background:rgb(237,237,237);padding:25px;}
 div.mform h2, div.recommended h2{font-size:26px;margin:0 0 20px 0;padding:0;color:rgb(0,0,0);line-height:31px;}
-div.mform input[type='text']{width:395px;height:15px;padding:15px 10px 5px 10px;background:rgb(255,255,255);color:rgb(179,179,179);text-transform:uppercase;font-family: 'Enriqueta', serif;border:0;font-size:9px;margin:0 0 14px 0;outline:none;}
+div.mform input[type='text']{width:395px;height:15px;padding:15px 10px 5px 10px;background:rgb(255,255,255);color:rgb(0,0,0);text-transform:uppercase;font-family: 'Enriqueta', serif;border:0;font-size:9px;margin:0 0 14px 0;outline:none;}
 div.mform input[type='submit']{width:75px;height:26px;font-family: 'Enriqueta', serif;color:rgb(0,0,0);border:0;border-bottom:1px solid rgb(0,0,0);background:url('../img/mini_arrow.png') no-repeat center right;text-transform: uppercase;font-size:12px;text-align:left;margin:0 0 0 10px;padding:0;}
 div.actions{float:right;width:182px;margin:29px 12px 0 0;}
 div.actions a{display:block;text-decoration:none;color:rgb(0,0,0);font-size:12px;text-transform:uppercase;border-bottom:1px solid rgb(204,204,204);background:url('../img/mini_arrow.png') no-repeat center right;height:20px;padding:12px 0 5px 0;}
 div.pub{position:relative;margin:0 0 20px 0;padding:20px 20px 35px 20px;border-top:3px solid rgb(0,0,0);-webkit-box-shadow:0px 3px 5px rgba(50, 50, 50, 0.7);-moz-box-shadow:0px 3px 5px rgba(50, 50, 50, 0.7);box-shadow:0px 3px 5px rgba(50, 50, 50, 0.7);}
 div.publast{margin:0 0 30px 0;}
 div.pub div.screen{width:621px;height:388px;position:relative;}
+div.pub div.screen .tint:hover {background: rgba(255,144,0, 0.5);
+    -moz-transition: all .3s linear;
+    -webkit-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;}
+div.pub div.screen .tint{background:none;position:absolute;display:block;height:388px;width:621px;top:0;left:0;}
 div.left div.screen{float:left;}
 div.right div.screen{float:right;}
-div.screen a{position:absolute;display:block;height:86px;width:86px;left:50%;top:50%;margin-left:-43px;margin-top:-43px;text-indent: -9999px;}
+div.screen a{position:absolute;display:block;height:388px;width:621px;left:0;top:0;text-indent: -9999px;}
+div.pub div.screen a:hover {background: rgba(255,144,0, 0.5) url('../img/play_r.png') no-repeat center center;
+    -moz-transition: all .3s linear;
+    -webkit-transition: all .3s linear;
+    -ms-transition: all .3s linear;
+    -o-transition: all .3s linear;
+    transition: all .3s linear;}
 div.left div.screen a{background:url('../img/play_r.png') no-repeat center center;}
-div.right div.screen a{background:url('../img/play_l.png') no-repeat center center;}
+div.right div.screen a{background:url('../img/play_r.png') no-repeat center center;}
 div.start div.book{width:108px;height:142px;padding:4px;float:left;border:1px solid rgb(204,204,204);}
 div.pos:hover div.book{border:1px solid rgb(255,144,0);}
+div.pub div.book:hover {border:1px solid rgb(255,144,0);}
 div.pub div.book,div.recommended div.book{width:108px;height:142px;padding:4px;float:left;border:1px solid rgb(204,204,204);}
 div.left div.book{margin-left:15px;}
 div.right div.book{margin-right:15px;}
@@ -95,8 +122,13 @@ div.start div.last{margin:0;}
 div.col h2{border-bottom:1px solid rgb(204,204,204);margin:20px 0 10px 0;}
 div.col ul, div.col ul li{list-style:none;margin:0;padding:0;}
 div.col ul li a{color:rgb(0,0,0);text-decoration:none;line-height:18px;font-size:13px;}
-div.start div.question{margin:20px 12px 20px 0;height:150px;border-top:2px solid rgb(255,143,0);}
+div.start div.question{margin:20px 12px 20px 0;min-height:150px;border-top:2px solid rgb(255,143,0);}
+div.start div.qactive{height:auto;}
 div.question p{color:rgb(255,143,0);line-height:18px;}
+div.question p:first-child {cursor:pointer};
+div.question p:first-child:hover {color:rgb(0,0,0);text-decoration:underline;}
+div.question p.ans{color:rgb(153,153,153);display:none;font-size:13px;line-height:16px;}
+div.question a{color:rgb(255,144,0);}
 div.sub div.start div.last{margin:15px 0;}
 div.sub div.start div.collast{margin:0;}
 div.sub div.start div.qlast{margin:20px 0;}
@@ -104,12 +136,12 @@ div.contactform{float:left;width:570px;}
 div.contactform p{width:430px;}
 div.contactform div.box{background:rgb(237,237,237);padding:25px;}
 div.contactform h3{font-size:16px;text-transform:uppercase;background:none;margin:20px 0 0 0;padding:0;color:rgb(127,127,127);line-height:31px;}
-div.contactform input[type='text']{width:410px;height:15px;padding:15px 10px 5px 10px;background:rgb(255,255,255);color:rgb(179,179,179);text-transform:uppercase;font-family: 'Enriqueta', serif;border:0;font-size:9px;margin:0 0 14px 0;outline:none;}
+div.contactform input[type='text']{width:410px;height:15px;padding:15px 10px 5px 10px;background:rgb(255,255,255);color:rgb(0,0,0);text-transform:uppercase;font-family: 'Enriqueta', serif;border:0;font-size:9px;margin:0 0 14px 0;outline:none;}
 div.contactform input[type='submit']{width:75px;height:26px;font-family: 'Enriqueta', serif;color:rgb(0,0,0);border:0;border-bottom:1px solid rgb(0,0,0);background:url('../img/mini_arrow.png') no-repeat center right;text-transform: uppercase;font-size:12px;text-align:left;margin:68px 0 0 10px;padding:0;float:left;}
 div.contactform input[type='text'].short{width:149px;}
 div.contactform input[type='text'].medium{width:230px;margin-left:7px;}
 div.contactform input[type='text'].with-error{border:1px solid red;margin-left:0;}
-div.contactform textarea{width:410px;height:75px;resize:none;float:left;padding:10px;border:0;color:rgb(179,179,179);background:rgb(255,255,255);text-transform:uppercase;font-family: 'Enriqueta', serif;font-size:9px;margin:0 0 14px 0;outline:none;}
+div.contactform textarea{width:410px;height:75px;resize:none;float:left;padding:10px;border:0;color:rgb(0,0,0);background:rgb(255,255,255);text-transform:uppercase;font-family: 'Enriqueta', serif;font-size:9px;margin:0 0 14px 0;outline:none;}
 div.contactform textarea.with-error{border:1px solid red;margin-left:0;}
 div.start h1.noborder{border-bottom:0;}
 
@@ -117,12 +149,12 @@ div.commentform{float:left;width:570px;}
 div.commentform p{width:430px;}
 div.commentform div.box{background:rgb(237,237,237);padding:25px;}
 div.commentform h3{font-size:16px;text-transform:uppercase;background:none;margin:20px 0 0 0;padding:0;color:rgb(127,127,127);line-height:31px;}
-div.commentform input[type='text']{width:410px;height:15px;padding:15px 10px 5px 10px;background:rgb(255,255,255);color:rgb(179,179,179);text-transform:uppercase;font-family: 'Enriqueta', serif;border:0;font-size:9px;margin:0 0 14px 0;outline:none;}
+div.commentform input[type='text']{width:410px;height:15px;padding:15px 10px 5px 10px;background:rgb(255,255,255);color:rgb(0,0,0);text-transform:uppercase;font-family: 'Enriqueta', serif;border:0;font-size:9px;margin:0 0 14px 0;outline:none;}
 div.commentform input[type='submit']{width:75px;height:26px;font-family: 'Enriqueta', serif;color:rgb(0,0,0);border:0;border-bottom:1px solid rgb(0,0,0);background:url('../img/mini_arrow.png') no-repeat center right;text-transform: uppercase;font-size:12px;text-align:left;margin:68px 0 0 10px;padding:0;float:left;}
 div.commentform input[type='text'].short{width:149px;}
 div.commentform input[type='text'].medium{width:230px;margin-left:7px;}
 div.commentform input[type='text'].with-error{border:1px solid red;margin-left:0;}
-div.commentform textarea{width:410px;height:75px;resize:none;float:left;padding:10px;border:0;color:rgb(179,179,179);background:rgb(255,255,255);text-transform:uppercase;font-family: 'Enriqueta', serif;font-size:9px;margin:0 0 14px 0;outline:none;}
+div.commentform textarea{width:410px;height:75px;resize:none;float:left;padding:10px;border:0;color:rgb(0,0,0);background:rgb(255,255,255);text-transform:uppercase;font-family: 'Enriqueta', serif;font-size:9px;margin:0 0 14px 0;outline:none;}
 div.commentform textarea.with-error{border:1px solid red;margin-left:0;}
 div.commentform label{width:430px;display:block;color:#7F7F7F;font-size:10px;text-transform:uppercase;margin-bottom:14px;}
 
@@ -141,7 +173,7 @@ div.start div.info{width:222px;float:right;padding:10px 20px;background:rgb(237,
 div.start div.info p{font-size:13px;}
 div.posinfo{float:left;width:200px;}
 div.posinfo div.postitle{font-size:19px;font-weight:700;}
-div.posinfo div.posauth{font-size:13px;margin:20px 0 0 0;}
+div.posinfo div.posauth{font-size:13px;margin:0 0 0 0;}
 div.posinfo div.posauth a{font-size:13px;margin:20px 0 0 0;color:rgb(0,0,0);text-decoration:none;}
 
 div#reader div.pos{float:none;margin-right:0;}
@@ -152,14 +184,21 @@ form ul.errorlist {list-style-type:none;margin:0;padding:0;font-size:12px;color:
 div.logo{float:left;}
 p#user-info{float:right;font-size:10px;text-transform:uppercase;}
 p#user-info a{color:rgb(0,0,0);text-decoration:none;paddding:0 5px;text-transform:uppercase;font-size:10px;}
-p#user-info a:hover{color:rgb(255,147,0);}
+p#user-info a:hover{color:rgb(255,144,0);}
 form#search-area{clear:right;float:right;}
 form#search-area label{display:none;}
 form#search-area input{padding:6px 10px;width:300px;}
 form#search-area button{background:none;border:0;width:75px;height:26px;font-family: 'Enriqueta', serif;color:rgb(0,0,0);border:0;border-bottom:1px solid rgb(0,0,0);background:url('../img/mini_arrow.png') no-repeat center right;text-transform: uppercase;font-size:12px;text-align:left;margin:0 0 0 10px;padding:0;}
 div#search-field{float:left;}
 div#search-button{float:left;}
-div#footer li a:hover{color:rgb(0,0,0);}
+div#footer li a:hover {color:rgb(0,0,0) !important;}
+div.pagination{float:right;color:rgb(0,0,0);}
+div.pagination a{color:rgb(0,0,0);text-decoration:none;margin-left:5px;font-size:18px;height:18px;}
+div.pagination .current{font-weight:700;margin-left:5px;font-size:18px;background:url('../img/arrow_menu.png') no-repeat 0 9px;height:18px;padding-left:10px;}
+div.pagination .prev, div.pagination .next{display:none;}
+
 
 div.pos{position:relative;}
+div.book{position:relative;}
+div.pub a.booklink{text-indent:-9999px;position:absolute;width:116px;height:150px;left:0;top:0;}
 div.pos a.booklink{text-indent:-9999px;position:absolute;width:116px;height:150px;left:9px;top:9px;}

@@ -27,11 +27,11 @@
                             <a href="{% tag_url 'author' slug %}">{{ name }}</a>
                             {% if not forloop.last %},{% endif %}
                         {% endfor %}
-                        {% for title, slug in related.parents %},
-                            <a href="{% url 'book_detail' slug %}">{{ title }}</a>
-                        {% endfor %}
                     </div>
                 </div>
+                {% if book.pdf_file %}
+                    <a class="booklink" href="{{ book.pdf_file.url }}">book</a>
+                {% endif %}
             </div>
         </div>
         <div class="social-buttons">
@@ -60,21 +60,20 @@
         </div>
     </div>
     <div class="posinfo">
-        <div class="postitle">
-            {% if main_link %}<a href="{{ main_link }}">{% endif %}
-            {{ book.title }}
-            {% if main_link %}</a>{% endif %}
-        </div>
         <div class="posauth">
             {% for name, slug in related.tags.author %}
                 <a href="{% tag_url 'author' slug %}">{{ name }}</a>
                 {% if not forloop.last %},{% endif %}
             {% endfor %}
+
             {% if book.year_of_publication %}
-                {{ book.year_of_publication }}
+                <br />{{ book.year_of_publication }}
             {% endif %}
             {% if book.parent_title %}
-                {{ book.parent_title }}
+                <br />{{ book.parent_title }}
+            {% endif %}
+            {% if book.parent %}
+                <br /><br />{{ book.parent }}
             {% endif %}
         </div>
 
@@ -82,24 +81,27 @@
             {% if book.pdf_file %}
                 <a href="">Informacje o licencji</a>
                 <a href="{{ book.pdf_file.url }}">Pobierz książkę</a>
-<!--                <a href="{% url "book_reader" book.slug %}" target="_blank">Czytaj online</a>
--->            {% endif %}
-<!--
+                {% comment %}
+                <a href="{% url "book_reader" book.slug %}" target="_blank">Czytaj online</a>
+                {% endcomment %}
+            {% endif %}
+            {% comment %}
             {% if request.user.is_authenticated %}
                 <div class="shelf-actions {% if not request.user|likes:book %}not-{% endif %}on-shelf">
                     <a href="{% url "social_like_book" book.slug %}" class="ajaxable add" data-ajax-method="post">Dodaj do swojej półki</a>
                     <a href="{% url "social_unlike_book" book.slug %}" class="ajaxable remove" data-ajax-method="post">Usuń ze swojej półki</a>
                 </div>
-            {% endif %}-->
+            {% endif %}
+            {% endcomment %}
         </div>
     </div>
     <div class="clear"></div>
 </div>
-
+{% comment %}
 <div class="info">
     <h2>co zrobiliśmy, aby ta książka była dostępna?</h2>
 
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse et sem in neque interdum cursus. Integer id ligula sit amet urna gravida venenatis. Proin hendrerit, quam nec bibendum pulvinar, nunc elit pharetra neque, eu accumsan mi velit a nisi. Suspendisse mi quam, pulvinar non lacinia sed, tempus vel sem. </p>
 </div>
-
+{% endcomment %}
 <div class="clear"></div>

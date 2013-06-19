@@ -41,53 +41,16 @@
                             <a href="/" title="powrót do strony startowej"><img src="{%  static "img/BON_logo.png" %}" alt="Biblioteka Otwartej Nauki"/></a>
                         </div>
 
-                        <p id="user-info">
-                            {% if user.is_authenticated %}
-                                {% trans "Welcome" %},
-                                    <span class="hidden-box-wrapper">
-                                        <a href="{% url 'user_settings' %}" class="hidden-box-trigger">
-                                            <strong>{{ user.username }}</strong>
-                                        </a>
-                                        <span id="user-menu" class="hidden-box">
-                                            <a href="{% url 'account_set_password' %}">{% trans "Password" %}</a><br/>
-                                            <a href="{% url 'account_email' %}">{% trans "E-mail" %}</a><br/>
-                                            <a href="{% url 'socialaccount_connections' %}">{% trans "Social accounts" %}</a><br/>
-                                        </span>
-                                    </span>
-                                | <a href="{% url 'social_my_shelf' %}" id="user-shelves-link">{% trans "My shelf" %}</a>
-                                {% if user.is_staff %}
-                                | <a href="/admin/">{% trans "Administration" %}</a>
-                                {% endif %}
-                                | <a href="{% url 'logout' %}?next={% block logout %}{{ request.get_full_path }}{% endblock %}">{% trans "Logout" %}</a>
-                            {% else %}
-                                <a href="{% url 'login' %}?next={{ request.path }}"
-                                    id="login" class="ajaxable">
-                                        {% trans "Sign in" %}</a>
-                                /
-                                <a href="{% url 'register' %}?next={{ request.path }}"
-                                    id="register" class="ajaxable">
-                                        {% trans "Register" %}</a>
-                            {% endif %}
-                        </p>
-
-                        <form id="search-area" action="{% url 'search' %}">
-                            <div id="search-field">
-                                <label for="search">{{ search_form.q.label }}</label>
-                                {{ search_form.q }}
-                            </div>
-                            <div id="search-button">
-                                <button type='submit'>{% trans "Search" %}</button>
-                            </div>
-                        </form>
+                        <div class="clear"></div>
 
                         <div class="menu">
                             <ul>
-                                <li><a href="/">Strona główna</a></li>
-                                <li><a href="/info/o-projekcie/">O projekcie</a></li>
-                                <li><a href="{% url 'book_list' %}">Biblioteka</a></li>
-                                <li><a href="{% url 'authors' %}">Kto udostępnił</a></li>
-                                <li><a href="/info/pytania-i-odpowiedzi/">Pytania i odpowiedzi</a></li>
-                                <li><a href="/info/kontakt/">Kontakt</a></li>
+                                <li class="{% ifequal request.path "/" %}active{% endifequal %}"><a href="/">Strona główna</a></li>
+                                <li class="{% ifequal request.path "/info/pytania-i-odpowiedzi/" %}active{% endifequal %}"><a href="/info/pytania-i-odpowiedzi/">Pytania i odpowiedzi</a></li>
+                                <li class="{% ifequal request.path "/katalog/autorzy/" %}active{% endifequal %}"><a href="{% url 'authors' %}">Kto udostępnił</a></li>
+                                <li class="{% ifequal request.path "/katalog/lektury/" %}active{% endifequal %}"><a href="{% url 'book_list' %}">Biblioteka</a></li>
+                                <li class="{% ifequal request.path "/info/o-projekcie/" %}active{% endifequal %}"><a href="/info/o-projekcie/">O projekcie</a></li>
+                                <li class="{% ifequal request.path "/info/kontakt/" %}active{% endifequal %}"><a href="/info/kontakt/">Kontakt</a></li>
                             </ul>
                             <div class="clear"></div>
                         </div>
@@ -113,14 +76,22 @@
                                 <li><a href="/info/kontakt/">Kontakt</a></li>
                             </ul>
                             <div class="clear"></div>
+                            <p class="source">Serwis wykorzystuje zmodyfikowane oprogramowanie projektu Wolne Lektury tworzone przez Fundację Nowoczesna Polska. Kod źródłowy dostępny w serwisie <a href="https://github.com/BibliotekaOtwartejNauki/wolnelektury/tree/bon" target="_blank">GitHub</a>.</p>
                         </div>
                         <div class="right">
-                            <div class="project">Projekt dofinansowany przez:<br/><br/>
-                                <img src="{% static "img/nia_logo.png" %}" alt=""/>
+                            <div class="project">Projekt dofinansowany przez:<br /><br />
+                                <img src="{% static "img/nia_logo.png" %}" alt="" />
+                                <div class="clear"></div>
+                                <div class="project logotyp">
+                                    <img src="{% static "img/mkidn.png" %}" alt="" />
+                                </div>
+                                <div class="project logotyp">
+                                    <img src="{% static "img/dziedzictwo.png" %}" alt="" />
+                                </div>
                             </div>
                             <div class="copy">
-                                Biblioteka Otwartej Nauki 2013<br/><br/>
-                                projekt strony internetowej:<br/>
+                                <img title="BY-SA" src="http://i.creativecommons.org/l/by-sa/3.0/80x15.png" alt="" width="80" height="15" /><br />Biblioteka Otwartej Nauki 2013<br /><br />
+                                projekt strony internetowej:<br />
                                 studio CONTROL+N
                             </div>
                             <div class="clear"></div>

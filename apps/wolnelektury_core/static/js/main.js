@@ -62,6 +62,11 @@ $(document).ready(function() {
         }
     );
 
+$('.question p:first-child').click(
+function(e){      
+$(this).siblings().toggle();
+    });
+
     $('a.video-trigger').click(
         function(e) {
             var $link = $(this),
@@ -74,7 +79,7 @@ $(document).ready(function() {
                 return false;
             }
 
-            $link.parent('.screen').html('<iframe width="621" height="388" src="http://www.youtube.com/embed/' + vid_id + '?rel=0" frameborder="0" allowfullscreen ></iframe>');
+            $link.parent('.screen').html('<iframe width="621" height="388" src="http://www.youtube.com/embed/' + vid_id + '?rel=0&autoplay=1" frameborder="0" allowfullscreen ></iframe>');
         }
     );
 
@@ -87,14 +92,13 @@ $(document).ready(function() {
             $mail = $contact_form.find('input[name="mail"]'),
             $phone = $contact_form.find('input[name="phone"]');
 
+
         if (person && !$person.val()) {
             $person.val(person);
         }
-        if (mail && !$mail.val()) {
+        if (mail && !$mail.val() && phone && !$phone.val()) {
             $mail.val(mail);
-        }
-        if (phone && !$phone.val()) {
-            $phone.val(phone);
+	    $phone.val(phone);
         }
 
         $(document).on('submit', '.contactform form',
