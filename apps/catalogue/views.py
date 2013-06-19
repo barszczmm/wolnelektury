@@ -74,7 +74,7 @@ def authors(request):
         else:
             authors_by_letters[first_letter] = [author]
     authors_by_letters = authors_by_letters.items()
-    print authors_by_letters
+    authors_by_letters.sort()
     return render_to_response('catalogue/authors.html',
                               {'authors_by_letters': authors_by_letters},
                               context_instance=RequestContext(request))
