@@ -31,7 +31,7 @@ class BookAdmin(TaggableModelAdmin):
     search_fields = ('title',)
     ordering = ('title',)
 
-    prepopulated_fields = {'slug': ('title',), 'common_slug': ('title',),}
+    prepopulated_fields = {'slug': ('title',)}
 
     inlines = [MediaInline]
 

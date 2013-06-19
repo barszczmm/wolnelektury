@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n common_tags %}
 {% load download_audio tag_list custom_pdf_link_li license_icon tag_url from catalogue_tags %}
 {% load cite_promo likes from social_tags %}
 
@@ -62,7 +62,13 @@
     <div class="posinfo">
         <div class="posauth">
             {% for name, slug in related.tags.author %}
-                <a href="{% tag_url 'author' slug %}">{{ name }}</a>
+                <a href="{% tag_url 'author' slug %}">
+                    {% with splitted_name=name|split:" " %}
+                        {% for word in splitted_name reversed %}
+                            {{ word }}
+                        {% endfor %}
+                    {% endwith %}
+                </a>
                 {% if not forloop.last %},{% endif %}
             {% endfor %}
 
@@ -75,11 +81,29 @@
             {% if book.parent %}
                 <br /><br />{{ book.parent }}
             {% endif %}
+            {% if book.license %}
+                <div class="license">
+                    {% if book.license == 'CC-BY' %}
+                        <img width="88" height="31" alt="" src="https://i.creativecommons.org/l/by/3.0/88x31.png" title="BY" />
+                    {% elif book.license == 'CC-BY-SA' %}
+                        <img width="88" height="31" alt="" src="https://i.creativecommons.org/l/by-sa/3.0/88x31.png" title="BY-SA" />
+                    {% elif book.license == 'CC-BY-NC' %}
+                        <img width="88" height="31" alt="" src="https://i.creativecommons.org/l/by-nc/3.0/88x31.png" title="BY-NC" />
+                    {% elif book.license == 'CC-BY-ND' %}
+                        <img width="88" height="31" alt="" src="https://i.creativecommons.org/l/by-nd/3.0/88x31.png" title="BY-ND" />
+                    {% elif book.license == 'CC-BY-NC-SA' %}
+                        <img width="88" height="31" alt="" src="https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png" title="BY-NC-SA" />
+                    {% elif book.license == 'CC-BY-NC-ND' %}
+                        <img width="88" height="31" alt="" src="https://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png" title="BY-NC-ND" />
+                    {% elif book.license == 'dozwolony-uzytek' %}
+                        publikacja jest udostępniona do wykorzystania w ramach dozwolonego użytku
+                    {% endif %}
+                </div>
+            {% endif %}
         </div>
 
         <div class="actions">
             {% if book.pdf_file %}
-                <a href="">Informacje o licencji</a>
                 <a href="{{ book.pdf_file.url }}">Pobierz książkę</a>
                 {% comment %}
                 <a href="{% url "book_reader" book.slug %}" target="_blank">Czytaj online</a>

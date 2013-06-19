@@ -16,9 +16,8 @@ import jsonfield
 from hybrid_filefield.fields import FileSelectOrUpload
 
 from catalogue import constants
-from catalogue.fields import EbookField
 from catalogue.models import Tag, Fragment, BookMedia
-from catalogue.utils import create_zip, split_tags, book_upload_path
+from catalogue.utils import create_zip, split_tags
 from catalogue import app_settings
 from catalogue import tasks
 from newtagging import managers
@@ -35,21 +34,30 @@ class Book(models.Model):
         ('orange', _('orange')),
     )
 
+    LICENSES = (
+        ('CC-BY', 'CC-BY'),
+        ('CC-BY-SA', 'CC-BY-SA'),
+        ('CC-BY-NC', 'CC-BY-NC'),
+        ('CC-BY-ND', 'CC-BY-ND'),
+        ('CC-BY-NC-SA', 'CC-BY-NC-SA'),
+        ('CC-BY-NC-ND', 'CC-BY-NC-ND'),
+        ('dozwolony-uzytek', u'dozwolony użytek'),
+    )
+
     """Represents a book imported from WL-XML."""
-    title         = models.CharField(_('title'), max_length=120)
-    sort_key = models.CharField(_('sort key'), max_length=120, db_index=True, editable=False)
-    slug = models.SlugField(_('slug'), max_length=120, db_index=True, unique=True)
-    common_slug = models.SlugField(_('slug'), max_length=120, db_index=True)
+    title = models.CharField(_('title'), max_length=255)
+    sort_key = models.CharField(_('sort key'), max_length=255, db_index=True, editable=False)
+    slug = models.SlugField(_('slug'), max_length=255, db_index=True, unique=True)
+    common_slug = models.SlugField(_('slug'), max_length=255, db_index=True, editable=False)
     language = models.CharField(_('language code'), max_length=3, db_index=True,
                                 default=app_settings.DEFAULT_LANGUAGE)
-    description   = models.TextField(_('description'), blank=True)
-    created_at    = models.DateTimeField(_('creation date'), auto_now_add=True, db_index=True)
-    changed_at    = models.DateTimeField(_('creation date'), auto_now=True, db_index=True)
+    description = models.TextField(_('description'), blank=True)
+    created_at = models.DateTimeField(_('creation date'), auto_now_add=True, db_index=True)
+    changed_at = models.DateTimeField(_('creation date'), auto_now=True, db_index=True)
     parent_number = models.IntegerField(_('parent number'), default=0, editable=False)
-    extra_info    = jsonfield.JSONField(_('extra information'), default='{}', editable=False)
-    gazeta_link   = models.CharField(blank=True, max_length=240)
-    wiki_link     = models.CharField(blank=True, max_length=240)
-    # files generated during publication
+    extra_info = jsonfield.JSONField(_('extra information'), default='{}', editable=False)
+    gazeta_link = models.CharField(blank=True, max_length=240)
+    wiki_link = models.CharField(blank=True, max_length=240)
 
     number_of_pages = models.PositiveSmallIntegerField(_('number of pages'), null=True, blank=True)
     year_of_publication = models.PositiveSmallIntegerField(_('year of publication'), null=True, blank=True)
@@ -65,7 +73,7 @@ class Book(models.Model):
     html_file = FileSelectOrUpload(_('HTML file'),
                                    upload_to='book/xml',
                                    path=settings.MEDIA_ROOT + 'book/html', match='.*\.html$',
-                                    null=True, blank=True)
+                                   null=True, blank=True)
     epub_file = FileSelectOrUpload(_('EPUB file'),
                                    upload_to='book/epub',
                                    path=settings.MEDIA_ROOT + 'book/epub', match='.*\.epub$',
@@ -89,19 +97,21 @@ class Book(models.Model):
                                null=True, blank=True, editable=False)
     cover_color = models.CharField(_('cover color'), max_length=10, null=True, blank=True,
                                    choices=COVER_COLORS)
-    recommended = models.BooleanField(_('recommended'), default=False)
     ebook_formats = ['pdf']
     formats = ebook_formats + ['xml']
 
-    parent_title = models.CharField(_('parent title'), max_length=120, null=True, blank=True)
+    parent_title = models.CharField(_('parent title'), max_length=255, null=True, blank=True)
 
     parent = models.ForeignKey('self', blank=True, null=True, related_name='children')
+    license = models.CharField(_('license'), max_length=20, blank=True, null=True, choices=LICENSES)
+
+    recommended = models.BooleanField(_('recommended'), default=False)
 
     _related_info = jsonfield.JSONField(blank=True, null=True, editable=False)
 
-    objects  = models.Manager()
-    tagged   = managers.ModelTaggedItemManager(Tag)
-    tags     = managers.TagDescriptor(Tag)
+    objects = models.Manager()
+    tagged = managers.ModelTaggedItemManager(Tag)
+    tags = managers.TagDescriptor(Tag)
 
     html_built = django.dispatch.Signal()
     published = django.dispatch.Signal()
@@ -122,6 +132,7 @@ class Book(models.Model):
         from sortify import sortify
 
         self.sort_key = sortify(self.title)
+        self.common_slug = self.slug
 
         ret = super(Book, self).save(force_insert, force_update)
 
@@ -447,11 +458,10 @@ class Book(models.Model):
             rel = {'tags': {}, 'media': {}}
 
             tags = self.tags.filter(category__in=(
-                    'author', 'kind', 'genre', 'epoch'))
+                'author', 'kind', 'genre', 'epoch', 'publisher', 'editor'))
             tags = split_tags(tags)
             for category in tags:
-                rel['tags'][category] = [
-                        (t.name, t.slug) for t in tags[category]]
+                rel['tags'][category] = [(t.name, t.slug) for t in tags[category]]
 
             for media_format in BookMedia.formats:
                 rel['media'][media_format] = self.has_media(media_format)

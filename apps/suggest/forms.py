@@ -111,28 +111,30 @@ u"""
 
 class ContactForm(forms.Form):
 
-    # person
     person = forms.CharField(label=_('first and last name'), max_length=120, required=True)
-    mail = forms.EmailField(label=_('e-mail address'), max_length=120, required=True)
-    phone = forms.CharField(label=_('telephone number'), max_length=20, required=True)
+    mail = forms.EmailField(label=_('e-mail address'), max_length=120, required=False)
+    phone = forms.CharField(label=_('telephone number'), max_length=20, required=False)
+    pubtitles = forms.CharField(label=_('publications titles'), widget=forms.Textarea, required=False)
 
-    # publication
-    title = forms.CharField(label=_('title'), required=True)
-    year = forms.CharField(label=_('publication year'), max_length=4, required=True)
-    publisher = forms.CharField(label=_('publisher'), required=True)
-    ip = forms.CharField(label=_('legal status'), required=True)
-    agreement = forms.CharField(label=_('contract'), widget=forms.Textarea, required=True)
+    def clean(self):
+        cleaned_data = super(ContactForm, self).clean()
+        if 'mail' in cleaned_data:
+            mail = cleaned_data['mail']
+            phone = cleaned_data['phone']
+            if not mail and not phone:
+                msg = u'Jedno z pól kontaktowych (adres e-mail lub numer telefonu) jest wymagane.'
+                self._errors['mail'] = self.error_class([msg])
+                self._errors['phone'] = self.error_class([msg])
+                del cleaned_data['mail']
+                del cleaned_data['phone']
+
+        return cleaned_data
 
     def save(self, request):
         person = self.cleaned_data['person']
         mail = self.cleaned_data['mail']
         phone = self.cleaned_data['phone']
-
-        title = self.cleaned_data['title']
-        year = self.cleaned_data['year']
-        publisher = self.cleaned_data['publisher']
-        ip = self.cleaned_data['ip']
-        agreement = self.cleaned_data['agreement']
+        pubtitles = self.cleaned_data['pubtitles']
 
         mail_managers(u'Kontakt ze strony Biblioteka Otwartej Nauki', u'''\
 DANE KONTAKTOWE
@@ -141,18 +143,10 @@ Adres e-mail: %(mail)s
 Numer telefonu: %(phone)s
 
 PUBLIKACJE:
-Tytuł: %(title)s
-Rok wydania: %(year)s
-Wydawnictwo: %(publisher)s
-Stan prawny: %(ip)s
-Umowa wydawnicza: %(agreement)s
+%(pubtitles)s
 ''' % {
             'person': person,
             'mail': mail,
             'phone': phone,
-            'title': title,
-            'year': year,
-            'publisher': publisher,
-            'ip': ip,
-            'agreement': agreement,
+            'pubtitles': pubtitles,
             }, fail_silently=True)
