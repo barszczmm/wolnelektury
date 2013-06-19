@@ -62,10 +62,11 @@ $(document).ready(function() {
         }
     );
 
-$('.question p:first-child').click(
-function(e){      
-$(this).siblings().toggle();
-    });
+    $('.question p:first-child').click(
+        function(e) {
+            $(this).siblings().toggle();
+        }
+    );
 
     $('a.video-trigger').click(
         function(e) {
@@ -83,66 +84,47 @@ $(this).siblings().toggle();
         }
     );
 
-    var $contact_form = $('.contactform form');
-    if ($contact_form.length) {
-        var person = getParameterByName('person'),
-            mail = getParameterByName('mail'),
-            phone = getParameterByName('phone'),
-            $person = $contact_form.find('input[name="person"]'),
-            $mail = $contact_form.find('input[name="mail"]'),
-            $phone = $contact_form.find('input[name="phone"]');
+    $(document).on('submit', '.contactform form, .mform form',
+        function(e) {
+            var $contact_form = $(this);
 
+            e.preventDefault();
 
-        if (person && !$person.val()) {
-            $person.val(person);
-        }
-        if (mail && !$mail.val() && phone && !$phone.val()) {
-            $mail.val(mail);
-	    $phone.val(phone);
-        }
+            $.ajax(
+                {
+                    url: $contact_form.attr('action'),
+                    type: $contact_form.attr('method'),
+                    data: $contact_form.serialize(),
+                    dataType: 'json',
+                    success: function(data) {
+                        var errors = '',
+                            key;
 
-        $(document).on('submit', '.contactform form',
-            function(e) {
-                var $contact_form = $(this);
+                        $contact_form.find('.errorlist').remove();
+                        $contact_form.find('.with-error').removeClass('with-error');
 
-                e.preventDefault();
-
-                $.ajax(
-                    {
-                        url: $contact_form.attr('action'),
-                        type: $contact_form.attr('method'),
-                        data: $contact_form.serialize(),
-                        dataType: 'json',
-                        success: function(data) {
-                            var errors = '',
-                                key;
-
-                            $contact_form.find('.errorlist').remove();
-                            $contact_form.find('.with-error').removeClass('with-error');
-
-                            if (!data.success) {
-                                for (key in data.errors) {
-                                    errors = '<ul class="errorlist">';
-                                    for (var i = 0; i < data.errors[key].length; i++) {
-                                        errors += '<li>' + data.errors[key][i] + '</li>';
-                                    }
-                                    errors += '</ul>';
-                                    $contact_form.find('input[name="' + key + '"]').addClass('with-error').before(errors);
-                                    $contact_form.find('textarea[name="' + key + '"]').addClass('with-error').before(errors);
+                        if (!data.success) {
+                            for (key in data.errors) {
+                                errors = '<ul class="errorlist">';
+                                for (var i = 0; i < data.errors[key].length; i++) {
+                                    errors += '<li>' + data.errors[key][i] + '</li>';
                                 }
-                            } else {
-                                $contact_form.get(0).reset();
-                                alert('Wiadomość została wysłana. Dziękujemy.');
+                                errors += '</ul>';
+                                $contact_form.find('input[name="' + key + '"]').addClass('with-error').before(errors);
+                                $contact_form.find('textarea[name="' + key + '"]').addClass('with-error').before(errors);
                             }
-                        },
-                        error: function() {
-                            alert('Niestety wystąpił błąd. Przeładuj stronę i spróbuj ponownie.');
+                        } else {
+                            $contact_form.get(0).reset();
+                            alert('Wiadomość została wysłana. Dziękujemy.');
                         }
+                    },
+                    error: function() {
+                        alert('Niestety wystąpił błąd. Przeładuj stronę i spróbuj ponownie.');
                     }
-                );
-            }
-        );
-    }
+                }
+            );
+        }
+    );
 
     var $comment_form = $('.commentform form');
     if ($comment_form.length) {

@@ -17,54 +17,54 @@
 
             <div class="step">
                 <h3>01</h3>
-                <p>autor zgłasza chęć<br>
-                udostępnienia<br>
-                książki w kolekcji<br>
+                <p>autor zgłasza chęć<br />
+                udostępnienia<br />
+                książki w kolekcji<br />
                 BON
                 </p>
             </div>
             <div class="step">
                 <h3>02</h3>
-                <p>rozwiązujemy<br>
-                kwestie praw<br>
-                autorskich. jeśli<br>
-                trzeba rozmawiamy<br>
+                <p>rozwiązujemy<br />
+                kwestie praw<br />
+                autorskich. jeśli<br />
+                trzeba rozmawiamy<br />
                 z wydawcami
                 </p>
             </div>
             <div class="step">
                 <h3>03</h3>
-                <p>skanujemy książki.<br>
-                ze skanów wyciągamy warstwę tekstową,<br>
-                aby książki można<br>
+                <p>skanujemy książki.<br />
+                ze skanów wyciągamy warstwę tekstową,<br />
+                aby książki można<br />
                 było przeszukiwać
                 </p>
             </div>
             <div class="step last">
                 <h3>04</h3>
-                <p>książka otrzymuje<br>
-                nową okładkę<br>
-                i jest udostępniona<br>
+                <p>książka otrzymuje<br />
+                nową okładkę<br />
+                i jest udostępniona<br />
                 w serwisie</p>
             </div>
             <div class="step">
                 <h3>05</h3>
-                <p>książka pojawia się<br>
-                w wyszukiwarkach<br>
-                naukowych jak google<br>
-                scholar czy scirus &mdash;<br>
-                jest widoczna na całym<br>
-                świecie. indeks cytowań<br>
+                <p>książka pojawia się<br />
+                w wyszukiwarkach<br />
+                naukowych jak google<br />
+                scholar czy scirus &mdash;<br />
+                jest widoczna na całym<br />
+                świecie. indeks cytowań<br />
                 autora wzrasta</p>
             </div>
             <div class="mform">
                 <div class="box">
-                    <h2>jeśli jesteś zainteresowany,<br>wypełnij formularz</h2>
-                    <form action="/info/kontakt/" method="GET">
-                        <input type="text" placeholder="Imię i nazwisko" name="person">
-                        <input type="text" placeholder="adres e-mail" name="mail">
-                        <input type="text" placeholder="Numer telefonu" name="phone">
-                        <input type="submit" value="Dalej">
+                    <h2>jeśli jesteś zainteresowany,<br />wypełnij formularz</h2>
+                    <form action="/sugestia/kontakt/" method="POST">
+                        <input type="text" placeholder="Imię i nazwisko" name="person" />
+                        <input type="text" placeholder="adres e-mail" name="mail" />
+                        <input type="text" placeholder="Numer telefonu" name="phone" />
+                        <input type="submit" value="Wyślij" />
                     </form>
                 </div>
             </div>
@@ -114,10 +114,10 @@
             </div>
             <div class="book gray">
                 <div class="cover">
-                     <div class="title">Grecja. Mały przewodnik turystyczny [współautor: A. Maliszewski]</div>
+                    <div class="title">Religijność starożytnych Greków</div>
                     <div class="author">WŁODZIMIERZ LENGAUER</div>
                 </div>
-                <a class="booklink" href="/katalog/lektura/grecja-maly-przewodnik-turystyczny-wspolautor-maliszewski/">book</a>
+                <a class="booklink" href="/katalog/lektura/religijnosc-starozytnych-grekow/">book</a>
             </div>
             <div class="quote">
                 <h5><a href="/katalog/autor/lengauer-wlodzimierz/">Prof. WŁODZIMIERZ LENGAUER</a></h5>
@@ -140,7 +140,7 @@
              <div class="book black">
                 <div class="cover">
                     <div class="title">Kultura muzyczna mniejszości narodowych w Polsce. Litwini, Białorusini, Ukraińcy</div>
-                    <div class="author">S?~Bawomira Żera?~Dsk<br/>a-Kominek</div>
+                    <div class="author">Sławomira Żerańska<br />-Kominek</div>
                 </div>
                 <a class="booklink" href="/katalog/lektura/kultura-muzyczna-mniejszosci-narodowych-w-polsce-litwini-bialorusini-ukraincy/">book</a>
             </div>
@@ -224,13 +224,13 @@
             <div class="clear"></div>
         </div>
 
-
+        {% comment %}
         <div class="recommended">
             <h2>polecane pozycje</h2>
             {% recommended_books %}
             <div class="clear"></div>
         </div>
-
+        {% endcomment %}
     {% endspaceless %}
 
 {% endblock %}
