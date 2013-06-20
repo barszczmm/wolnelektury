@@ -4,10 +4,12 @@
 #
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext, Template, TemplateSyntaxError
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from infopages.models import InfoPage
 
 
+@ensure_csrf_cookie
 def infopage(request, slug):
     page = get_object_or_404(InfoPage, slug=slug)
     rc = RequestContext(request)
@@ -22,4 +24,4 @@ def infopage(request, slug):
         left_column = ''
 
     return render_to_response('infopages/infopage.html', locals(),
-                context_instance=RequestContext(request))
+                              context_instance=RequestContext(request))

@@ -11,6 +11,7 @@ from django.template import RequestContext
 from django.utils.http import urlquote_plus
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 from django.conf import settings
 from ajaxable.utils import AjaxableFormView
@@ -19,12 +20,13 @@ from ajaxable.utils import placeholdized
 from social.templatetags.social_tags import choose_cite
 
 
+@ensure_csrf_cookie
 def main_page(request):
     last_published = Book.objects.filter(parent=None).order_by('-created_at')[:4]
     cite = choose_cite(RequestContext(request))
 
     return render_to_response("main_page.html", locals(),
-        context_instance=RequestContext(request))
+                              context_instance=RequestContext(request))
 
 
 class LoginFormView(AjaxableFormView):
